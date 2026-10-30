@@ -15,7 +15,7 @@ Abra https://finstart-publicacao.vercel.app e aguarde o servidor despertar. Conf
 
 ## Código para mostrar ao professor
 
-Repositório: https://github.com/enzocayresferreira7-pixel/finstart
+Repositório: https://github.com/yurikikuchi2006/finstart
 
 | Arquivo | O que demonstra |
 | --- | --- |
@@ -33,8 +33,8 @@ Render usa build `pnpm install --frozen-lockfile` e start `node server/index.js`
 
 ## Salvar e manter
 
-Use o GitHub para histórico do código e o ZIP atualizado para compartilhar uma cópia. Preserve o PDF no pacote. O banco em nuvem é separado: salvar código não faz backup dos registros. Backups externos e restauração da Aiven ainda precisam de configuração e validação. Não compartilhe .env, senhas, tokens, certificados privados ou dados pessoais. Para mostrar tabelas no Workbench, use uma conexão autorizada com TLS, sem projetar credenciais na tela.
+Use o GitHub para histórico do código e o ZIP atualizado para compartilhar uma cópia. Preserve o PDF no pacote. O banco em nuvem é separado: salvar código não faz backup dos registros. Um backup externo foi restaurado e comparado em MySQL local isolado. O dump privado não integra o ZIP; a rotina e retenção das próximas cópias devem ser definidas. Não compartilhe .env, senhas, tokens, certificados privados ou dados pessoais. Para mostrar tabelas no Workbench, use uma conexão autorizada com TLS, sem projetar credenciais na tela.
 
 ## Limites que devem ser informados
 
-Os testes HTTP principais passaram. A revisão completa dos fluxos visuais/mobile online, reinício da API, backup externo e deploy automático continuam pendentes. Recuperação de senha e verificação de e-mail não estão implementadas. Hospedagem gratuita pode demorar no primeiro acesso.
+Os testes HTTP finais, fluxos visuais/mobile em quatro larguras, persistência após reinício e restauração isolada do backup passaram. A Vercel publica por commit. O Render usa a mesma cópia, mas exige Manual Deploy > Deploy latest commit. Auditorias completas de acessibilidade e segurança e uso em aparelho físico não foram realizados. Recuperação de senha e verificação de e-mail não estão implementadas. Hospedagem gratuita pode demorar no primeiro acesso.

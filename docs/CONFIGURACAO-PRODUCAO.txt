@@ -2,13 +2,12 @@ FINSTART - Configuração da publicação
 
 Frontend público: https://finstart-publicacao.vercel.app
 API: https://finstart-api-l60v.onrender.com
-Código: https://github.com/enzocayresferreira7-pixel/finstart
+Código: https://github.com/yurikikuchi2006/finstart
 
 VERCEL
 Publicar somente a saída de node scripts/build-static.js.
 vercel.json contém o destino do proxy /api e os cabeçalhos.
-A publicação atual foi feita pela CLI, com pasta estática contendo os 24 arquivos públicos.
-O deploy automático pelo GitHub ainda não foi validado.
+A publicação pelo GitHub foi validada: build node scripts/build-static.js, saída dist, 25 arquivos públicos.
 
 RENDER (serviço Node nativo)
 Build: pnpm install --frozen-lockfile
@@ -31,6 +30,8 @@ AIVEN
 Serviço MySQL persistente. A aplicação conecta por TLS usando as variáveis acima.
 database/schema.mysql.sql descreve as tabelas; server/mysql.js inicializa o esquema.
 Não execute scripts de recriação destrutiva. Não publique credenciais de acesso.
-Não há backup dos registros online no ZIP. Rotina externa de backup e restauração pendente de validação.
+Não há backup dos registros online no ZIP. Um dump externo foi restaurado em instância MySQL local isolada; dez tabelas coincidiram. Definir rotina, responsável e retenção das próximas cópias.
 
-Dockerfile e render.yaml são alternativas de implantação; o serviço Render atual usa os comandos Node acima.
+deploy/Dockerfile e render.yaml são alternativas de implantação; o serviço Render atual usa os comandos Node acima.
+
+Render conectado à cópia de Yuri por repositório público: usar Manual Deploy > Deploy latest commit e aguardar Live. Automação por integração Git continua pendente.

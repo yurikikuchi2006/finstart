@@ -1,0 +1,273 @@
+{
+  "base": "https://finstart-publicacao.vercel.app",
+  "browser": "Microsoft Edge via Playwright",
+  "screens": [
+    {
+      "path": "index.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "simulador.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "juros.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "metas.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "aprender.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "comparar.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "projeto.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "conta.html",
+      "width": 320,
+      "client": 320,
+      "scroll": 320,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "index.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "simulador.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "juros.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "metas.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "aprender.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "comparar.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "projeto.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "conta.html",
+      "width": 390,
+      "client": 390,
+      "scroll": 390,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "index.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "simulador.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "juros.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "metas.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "aprender.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "comparar.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "projeto.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "conta.html",
+      "width": 768,
+      "client": 768,
+      "scroll": 768,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "index.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "simulador.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "juros.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "metas.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "aprender.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "comparar.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "projeto.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    },
+    {
+      "path": "conta.html",
+      "width": 1280,
+      "client": 1280,
+      "scroll": 1280,
+      "h1": 1,
+      "pass": true
+    }
+  ],
+  "flows": [
+    "login",
+    "cookie seguro",
+    "orçamento salvar consultar excluir",
+    "juros calcular salvar consultar excluir",
+    "meta criar editar histórico excluir",
+    "comparação calcular salvar consultar excluir",
+    "biblioteca filtros busca limpar",
+    "logout"
+  ],
+  "pageErrors": []
+}

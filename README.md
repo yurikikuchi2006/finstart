@@ -1,6 +1,6 @@
 # FinStart
 
-Publicação mantida por Yuri: https://github.com/yurikikuchi2006/finstart. Esta cópia preserva o histórico do repositório acadêmico https://github.com/enzocayresferreira7-pixel/finstart. Para o status operacional mais recente, consulte [a validação complementar](docs/VALIDACAO-FINAL.md); os documentos acadêmicos recebidos registram a etapa anterior.
+Publicação mantida por Yuri: https://github.com/yurikikuchi2006/finstart. Esta cópia preserva o histórico do repositório acadêmico https://github.com/enzocayresferreira7-pixel/finstart. Para o status operacional mais recente, consulte [a validação complementar](docs/VALIDACAO-FINAL.md); o PDF e o DOCX foram atualizados com os resultados comprovados.
 
 Plataforma web de educação financeira e planejamento para jovens. PUC-Campinas, Programação Web (2181161, conforme modelo oficial), turma 101.
 
@@ -10,7 +10,7 @@ Abra https://finstart-publicacao.vercel.app em qualquer navegador com internet. 
 
 Frontend na Vercel, API Node/Express no Render e MySQL persistente na Aiven. O código do proxy está em `vercel.json`, a seleção dos arquivos públicos em `scripts/build-static.js`, a inicialização da API em `server/index.js`, a conexão TLS em `server/mysql.js` e as tabelas em `database/schema.mysql.sql`. Credenciais ficam nas variáveis privadas do Render. Consulte `docs/PUBLICACAO.md` para o alcance dos testes e `docs/APRESENTACAO-ONLINE.md` para o roteiro.
 
-O ZIP guarda o código e os documentos, não os dados do MySQL online. Não misture arquivos soltos com versões antigas: extraia o pacote atualizado em uma pasta própria. A conexão automática GitHub → deploy ainda não foi concluída; um commit sozinho não confirma atualização do site.
+O ZIP guarda o código e os documentos, não os dados do MySQL online. Não misture arquivos soltos com versões antigas: extraia o pacote atualizado em uma pasta própria. A Vercel publica automaticamente a cópia de Yuri. No Render, após o commit, use Manual Deploy > Deploy latest commit e confira Live.
 
 ## Executar localmente no Windows
 
@@ -50,7 +50,7 @@ São 10 tabelas e 8 relacionamentos: usuários, sessões, orçamentos, juros, me
 
 Instale também as dependências de desenvolvimento com `npm install --ignore-scripts` ou `pnpm install --frozen-lockfile`.
 
-- `node --test`: 10 testes locais; a integração MySQL é opcional e aparece como ignorada sem configuração.
+- `node --test`: 11 testes locais; a integração MySQL é opcional e aparece como ignorada sem configuração.
 - MySQL isolado: configure um `.env` para um banco exclusivo de teste e use `FINSTART_TEST_MYSQL=1` com `node --env-file=.env --test tests/mysql.test.js`. Não use um banco de produção para testes.
 - `node scripts/evidencias.js`: gera evidências HTTP/SQL com dados fictícios em SQLite temporário.
 - `npm run backup`: lê o `.env` e cria backup privado em `backups/`. SQLite usa cópia consistente; MySQL usa `mysqldump --single-transaction`, sem senha nos argumentos do processo. A restauração de um dump deve ser feita em banco vazio, com acesso administrativo, após verificar o destino.

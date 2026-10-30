@@ -32,15 +32,18 @@ SHA-256 do dump: `81636286b40129fb38f135d0dc3cb017a945e03ae4f37746d49d21024dfea6
 
 ## Limites e pendências
 
-- Revisão mobile online completa pendente: o controle de viewport não produziu a largura solicitada; não há nova aprovação mobile nesta rodada. Evidências responsivas anteriores continuam históricas.
-- Não houve auditoria completa de acessibilidade ou segurança, nem repetição integral do script HTTP com duas contas. O isolamento entre contas permanece evidência da rodada anterior.
-- Confirmar deploy automático efetivo da Vercel e do Render, distinguindo conexão/configuração de execução concluída.
+- Após autorização para usar Playwright separado, os fluxos completos mobile e as oito páginas passaram em 320, 390, 768 e 1280 px, sem transbordamento horizontal ou erros JavaScript na rodada final. Os registros inseridos posteriormente foram preservados.
+- O script HTTP foi repetido integralmente após as atualizações: todos os itens passaram, inclusive isolamento entre duas contas e caminhos privados com 404. Mais duas contas fictícias foram criadas; registros financeiros do teste foram excluídos.
+- Não houve auditoria completa de acessibilidade ou segurança nem teste em aparelho físico.
+- A Vercel publicou automaticamente commits da cópia de Yuri como Ready. O serviço Render existente foi alterado, com autorização específica, para essa cópia e publicou ee936f2 como Live. A opção de repositório público informa que os próximos deploys são manuais; integração Git do Render continua pendente.
 - Definir responsável, frequência e armazenamento externo protegido dos backups; repetir restauração periodicamente. A existência de uma cópia local não configura agendamento ou retenção automática.
-- PDF e DOCX recebidos são o retrato anterior desta entrega. Este registro complementa seu status operacional. A nova exportação diagramada do DOCX depende de um renderizador disponível; não declarar que o relatório acadêmico foi regenerado sem isso.
+- PDF e DOCX foram atualizados mantendo as 16 páginas e nove seções do modelo; todas as páginas renderizadas foram revisadas.
 - Recuperação de senha e verificação de e-mail continuam fora do escopo implementado.
 
 ## Apresentação e manutenção
 
 Antes da apresentação, abrir o site e `/api/saude`; aguardar banco conectado. Usar navegador e internet, sem instalação no notebook da faculdade. Seguir docs/APRESENTACAO-ONLINE.md, informar que os cenários são educativos e que o plano gratuito pode demorar para despertar.
 
-Para alterar a publicação, trabalhar na cópia de Yuri, testar, enviar commit para main e conferir o deploy no painel. Conferir saúde, login e uma gravação depois da publicação. GitHub e ZIP guardam código; dados online e backups têm ciclo separado. O Render ainda deve ter sua origem efetiva conferida antes de assumir que um commit na cópia atualiza a API.
+Para alterar a publicação, trabalhar na cópia de Yuri, testar, enviar commit para main e conferir o deploy da Vercel. No Render, usar Manual Deploy > Deploy latest commit e aguardar Live. Conferir saúde, login e uma gravação depois da publicação. GitHub e ZIP guardam código; dados online e backups têm ciclo separado.
+
+Correções desta rodada: Dockerfile alternativo em deploy/; build estático em dist; Node limitado à versão principal 24; página e regra explícita de 404; identificador principal na página Sobre, corrigindo o link de salto e o MutationObserver. Referência da configuração 404: https://vercel.com/kb/guide/custom-404-page.

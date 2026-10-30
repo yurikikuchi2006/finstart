@@ -1,0 +1,16 @@
+PASS pagina publica
+PASS proxy e MySQL
+PASS cadastro
+PASS login e cookie seguro
+PASS calculo juros
+PASS salvar e consultar simulacoes
+PASS salvar e consultar juros
+PASS salvar e consultar metas
+PASS progresso meta
+PASS comparacao e historico
+PASS conteudos
+PASS isolamento contas
+PASS persistencia apos novo login
+PASS exclusao registros teste
+PASS arquivos privados indisponiveis
+Concluido. Contas ficticias mantidas; registros de teste excluidos. Nao testa reinicio nem interface visual.

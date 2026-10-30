@@ -1,0 +1,60 @@
+{
+  "tlsValidated": true,
+  "sourceMySQL": "8.4.11",
+  "restoredMySQL": "8.0.45",
+  "sha256": "81636286b40129fb38f135d0dc3cb017a945e03ae4f37746d49d21024dfea6c9",
+  "bytes": 25679,
+  "tables": [
+    {
+      "name": "categoria",
+      "rows": 13,
+      "equal": true
+    },
+    {
+      "name": "conteudo",
+      "rows": 15,
+      "equal": true
+    },
+    {
+      "name": "juros",
+      "rows": 1,
+      "equal": true
+    },
+    {
+      "name": "metas",
+      "rows": 0,
+      "equal": true
+    },
+    {
+      "name": "progresso_meta",
+      "rows": 0,
+      "equal": true
+    },
+    {
+      "name": "sessoes",
+      "rows": 3,
+      "equal": true
+    },
+    {
+      "name": "simulacao_investimento",
+      "rows": 3,
+      "equal": true
+    },
+    {
+      "name": "simulacoes",
+      "rows": 1,
+      "equal": true
+    },
+    {
+      "name": "tipo_investimento",
+      "rows": 3,
+      "equal": true
+    },
+    {
+      "name": "usuarios",
+      "rows": 7,
+      "equal": true
+    }
+  ],
+  "allEqual": true
+}
