@@ -1,5 +1,7 @@
 # FinStart
 
+Publicação mantida por Yuri: https://github.com/yurikikuchi2006/finstart. Esta cópia preserva o histórico do repositório acadêmico https://github.com/enzocayresferreira7-pixel/finstart. Para o status operacional mais recente, consulte [a validação complementar](docs/VALIDACAO-FINAL.md); os documentos acadêmicos recebidos registram a etapa anterior.
+
 Plataforma web de educação financeira e planejamento para jovens. PUC-Campinas, Programação Web (2181161, conforme modelo oficial), turma 101.
 
 ## Apresentar a versão online
