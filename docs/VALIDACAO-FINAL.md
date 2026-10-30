@@ -47,3 +47,10 @@ Antes da apresentação, abrir o site e `/api/saude`; aguardar banco conectado. 
 Para alterar a publicação, trabalhar na cópia de Yuri, testar, enviar commit para main e conferir o deploy da Vercel. No Render, usar Manual Deploy > Deploy latest commit e aguardar Live. Conferir saúde, login e uma gravação depois da publicação. GitHub e ZIP guardam código; dados online e backups têm ciclo separado.
 
 Correções desta rodada: Dockerfile alternativo em deploy/; build estático em dist; Node limitado à versão principal 24; página e regra explícita de 404; identificador principal na página Sobre, corrigindo o link de salto e o MutationObserver. Referência da configuração 404: https://vercel.com/kb/guide/custom-404-page.
+
+
+## Atualização de 30/10/2026
+
+Yuri confirmou nesta conversa o recebimento dos códigos de cadastro e login e a gravação e recuperação de dados com o novo acesso. Resultado informado pelo usuário, distinto dos testes automatizados locais. Nenhum código real, senha, endereço de conta ou cookie é publicado como evidência.
+
+A verificação HTTP confirmou banco conectado e verificação_email=true. O novo layout do e-mail foi conferido com código fictício em desktop e 320 px; nove testes de e-mail passaram após a alteração.

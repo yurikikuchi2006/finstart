@@ -44,13 +44,13 @@ Monólito em camadas: HTML/CSS/JavaScript → API REST Node.js/Express → conex
 
 **Alternativa SQLite:** uma cópia nova sem configuração MySQL inicia com `data/finstart.sqlite`, usando `database/schema.sql`. Esse modo continua disponível para testes e execução simples; não sincroniza contas com MySQL nem com a nuvem.
 
-São 10 tabelas e 8 relacionamentos: usuários, sessões, orçamentos, juros, metas, categorias, conteúdos, tipos de cenário, resultados de comparação e progresso de metas. A nomenclatura e os ajustes em relação ao MER planejado estão explicados no PDF.
+São 12 tabelas e 9 relacionamentos, incluindo desafios de e-mail e limites de envio: usuários, sessões, orçamentos, juros, metas, categorias, conteúdos, tipos de cenário, resultados de comparação e progresso de metas. A nomenclatura e os ajustes em relação ao MER planejado estão explicados no PDF.
 
 ## Verificar
 
 Instale também as dependências de desenvolvimento com `npm install --ignore-scripts` ou `pnpm install --frozen-lockfile`.
 
-- `node --test`: 11 testes locais; a integração MySQL é opcional e aparece como ignorada sem configuração.
+- `node --test`: 20 testes locais aprovados e um MySQL opcional ignorado na suíte padrão; a integração MySQL é opcional e aparece como ignorada sem configuração.
 - MySQL isolado: configure um `.env` para um banco exclusivo de teste e use `FINSTART_TEST_MYSQL=1` com `node --env-file=.env --test tests/mysql.test.js`. Não use um banco de produção para testes.
 - `node scripts/evidencias.js`: gera evidências HTTP/SQL com dados fictícios em SQLite temporário.
 - `npm run backup`: lê o `.env` e cria backup privado em `backups/`. SQLite usa cópia consistente; MySQL usa `mysqldump --single-transaction`, sem senha nos argumentos do processo. A restauração de um dump deve ser feita em banco vazio, com acesso administrativo, após verificar o destino.
@@ -59,7 +59,7 @@ Instale também as dependências de desenvolvimento com `npm install --ignore-sc
 
 `server/` contém rotas, controllers, autenticação e adaptadores SQL; `database/`, os dois esquemas; `tests/`, verificações; `docs/`, PDFs, Kanban e evidências; `scripts/`, utilitários de verificação e backup. Páginas, estilos e módulos compartilhados ficam na raiz para manter o site multipágina simples. Os arquivos de inicialização são necessários.
 
-Relatórios atuais: **docs/FinStart-Entrega-2-Corrigida.pdf** e **docs/FinStart-3a-Entrega-Revisada.pdf**, com versões editáveis DOCX. Ambos seguem as nove seções, a capa e os cabeçalhos do modelo oficial, turma 101. O primeiro complementa a entrega histórica de 01/10 com a correção datada de 28/10; não afirma que os novos recursos já existiam na entrega original. Conferência pelo grupo, publicação e envio no Canvas permanecem necessários.
+Relatórios atuais: **docs/FinStart-Entrega-2-Corrigida.pdf** e **docs/FinStart-3a-Entrega-Revisada.pdf**, com versões editáveis DOCX. Ambos seguem as nove seções, a capa e os cabeçalhos do modelo oficial, turma 101. O primeiro complementa a entrega histórica de 01/10 com a correção datada de 28/10; não afirma que os novos recursos já existiam na entrega original. Publicação concluída; conferência pelo grupo e envio no Canvas permanecem necessários.
 
 `.env`, `data/`, `node_modules/`, `tmp/`, logs e backups ficam fora do Git e do ZIP público. Cada instalação possui seu banco; o pacote não contém contas pessoais. O Kanban registra a revisão atual e não inventa reuniões ou movimentações passadas.
 
@@ -68,3 +68,4 @@ Relatórios atuais: **docs/FinStart-Entrega-2-Corrigida.pdf** e **docs/FinStart-
 Gabriel Polli Perin (25007439); Yuri Kikuchi (25007272); Enzo Cayres Ferreira (25000144); Eduardo dos Santos Fernandez (25000693); Paulo Henrique Scavariello Guimarães (25017738).
 
 Programação Web: Fernando Luiz de Almeida Silveira. Bancos de Dados Relacionais: Felipe Cavalaro.
+

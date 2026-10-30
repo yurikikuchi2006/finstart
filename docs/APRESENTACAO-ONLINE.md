@@ -37,4 +37,4 @@ Use o GitHub para histórico do código e o ZIP atualizado para compartilhar uma
 
 ## Limites que devem ser informados
 
-Os testes HTTP finais, fluxos visuais/mobile em quatro larguras, persistência após reinício e restauração isolada do backup passaram. A Vercel publica por commit. O Render usa a mesma cópia, mas exige Manual Deploy > Deploy latest commit. Auditorias completas de acessibilidade e segurança e uso em aparelho físico não foram realizados. Recuperação de senha e verificação de e-mail não estão implementadas. Hospedagem gratuita pode demorar no primeiro acesso.
+Os testes HTTP finais, fluxos visuais/mobile em quatro larguras, persistência após reinício e restauração isolada do backup passaram. A Vercel publica por commit. O Render usa a mesma cópia, mas exige Manual Deploy > Deploy latest commit. Auditorias completas de acessibilidade e segurança e uso em aparelho físico não foram realizados. Recuperação de senha não está implementada. Cadastro e login por código de e-mail e persistência com o novo acesso foram confirmados por Yuri em 30/10/2026. Hospedagem gratuita pode demorar no primeiro acesso.

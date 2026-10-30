@@ -35,6 +35,9 @@ A chave foi autorizada com acesso restrito ao recurso E-mails transacionais. O p
 
 Testes locais de API aprovam cadastro pendente, senha sem sessão, código incorreto, cinco erros, expiração, reenvio, cota diária, falha do provedor, concorrência e persistência ao reabrir o banco. Playwright aprovou a interface em 320, 390, 768 e 1280 px com remetente simulado. MySQL local isolado aprovou migração sem perda dos registros anteriores e uso único concorrente; a integração MySQL opcional também foi executada e aprovada separadamente.
 
-Envio real, entrega na caixa postal e ativação em produção ainda precisam ser registrados após a implantação. Esses testes locais não comprovam entrega real. O script verificar-online.mjs detecta a etapa ativa e evita criar contas ou enviar mensagens para endereços fictícios: nesse modo, os fluxos autenticados são explicitamente ignorados, e devem ser validados pelo navegador com uma caixa postal própria.
+Yuri confirmou nesta conversa o recebimento dos códigos de cadastro e login e a gravação e recuperação de dados com o novo acesso. Resultado informado pelo usuário, distinto dos testes automatizados locais. Nenhum código real, senha, endereço de conta ou cookie é publicado como evidência.
+
+A verificação HTTP confirmou banco conectado e verificação_email=true. O novo layout do e-mail foi conferido com código fictício em desktop e 320 px; nove testes de e-mail passaram após a alteração.
+
 
 Fontes: https://render.com/docs/free ; https://developers.brevo.com/docs/send-a-transactional-email ; https://help.brevo.com/hc/en-us/articles/208580669-FAQs-What-are-the-limits-of-the-Free-plan

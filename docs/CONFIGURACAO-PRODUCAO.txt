@@ -35,3 +35,9 @@ Não há backup dos registros online no ZIP. Um dump externo foi restaurado em i
 deploy/Dockerfile e render.yaml são alternativas de implantação; o serviço Render atual usa os comandos Node acima.
 
 Render conectado à cópia de Yuri por repositório público: usar Manual Deploy > Deploy latest commit e aguardar Live. Automação por integração Git continua pendente.
+
+CONFIRMAÇÃO POR E-MAIL ATIVA EM 30/10/2026
+EMAIL_OTP_ENABLED=true; EMAIL_FROM e BREVO_API_KEY configurados somente no Render.
+Yuri confirmou cadastro/login por código e gravação/recuperação com o novo acesso.
+O backup restaurado de 29/10 é anterior às duas tabelas novas; não representa backup atual.
+Consulte docs/VERIFICACAO-EMAIL.md e docs/ROTEIRO-PROFESSOR.md.
