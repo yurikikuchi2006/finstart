@@ -1,0 +1,9 @@
+{
+  "database": "instância local isolada",
+  "existingUsersPreserved": true,
+  "signupRequiresCode": true,
+  "loginRequiresCode": true,
+  "concurrentCodeSingleUse": true,
+  "tables": 12,
+  "optionalIntegrationTestPassed": true
+}

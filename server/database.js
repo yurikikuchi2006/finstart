@@ -7,6 +7,13 @@ export function conectar(path) {
   db.exec(
     readFileSync(new URL("../database/schema.sql", import.meta.url), "utf8"),
   );
+  if (
+    !db
+      .prepare("PRAGMA table_info(usuarios)")
+      .all()
+      .some((f) => f.name === "email_verificado_em")
+  )
+    db.exec("ALTER TABLE usuarios ADD COLUMN email_verificado_em INTEGER");
   const contentFields = db
     .prepare("PRAGMA table_info(conteudo)")
     .all()
@@ -38,16 +45,21 @@ export function conectar(path) {
   db.exec(
     "UPDATE metas SET status=CASE WHEN guardado_centavos>=alvo_centavos THEN 'concluida' ELSE 'em_andamento' END",
   );
-  db.transaction = async function (fn) {
-    db.exec("BEGIN IMMEDIATE");
-    try {
-      const r = await fn(db);
-      db.exec("COMMIT");
-      return r;
-    } catch (e) {
-      db.exec("ROLLBACK");
-      throw e;
-    }
+  let fila = Promise.resolve();
+  db.transaction = function (fn) {
+    const operacao = fila.then(async () => {
+      db.exec("BEGIN IMMEDIATE");
+      try {
+        const r = await fn(db);
+        db.exec("COMMIT");
+        return r;
+      } catch (e) {
+        db.exec("ROLLBACK");
+        throw e;
+      }
+    });
+    fila = operacao.catch(() => {});
+    return operacao;
   };
   return db;
 }

@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 import { resolve, extname } from "node:path";
 import { conectar } from "./database.js";
 import { controllers } from "./controllers.js";
+import { configurarEmail } from "./email.js";
+import { verificacaoEmail } from "./verificacao-email.js";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const publicos = new Set([
   "aprender.html",
@@ -34,12 +36,27 @@ const publicos = new Set([
   "style.css",
   "logo_FinStart.png",
 ]);
-export function criarServidor({ db, secret, secure = false, publicOrigin }) {
-  if (publicOrigin && (new URL(publicOrigin).origin !== publicOrigin || (secure && !publicOrigin.startsWith("https://"))))
-    throw Error("PUBLIC_ORIGIN deve ser a origem exata do site, sem barra final e com HTTPS em produção.");
+export function criarServidor({
+  db,
+  secret,
+  secure = false,
+  publicOrigin,
+  emailVerification = null,
+}) {
+  if (
+    publicOrigin &&
+    (new URL(publicOrigin).origin !== publicOrigin ||
+      (secure && !publicOrigin.startsWith("https://")))
+  )
+    throw Error(
+      "PUBLIC_ORIGIN deve ser a origem exata do site, sem barra final e com HTTPS em produção.",
+    );
   if (!secret || secret.length < 32)
     throw Error("Defina JWT_SECRET com pelo menos 32 caracteres.");
   const c = controllers(db, secret);
+  const email = emailVerification
+    ? verificacaoEmail(db, secret, c, emailVerification)
+    : null;
   const tentativas = new Map();
   const ready = semear(db);
   const app = express();
@@ -96,7 +113,14 @@ export function criarServidor({ db, secret, secure = false, publicOrigin }) {
             return enviar(400, { erro: "Envie um objeto JSON." });
         }
         const route = req.method + " " + url.pathname;
-        if (route === "POST /api/login" || route === "POST /api/cadastro") {
+        if (
+          [
+            "POST /api/login",
+            "POST /api/cadastro",
+            "POST /api/confirmar-email",
+            "POST /api/reenviar-codigo",
+          ].includes(route)
+        ) {
           const now = Date.now(),
             key = req.socket.remoteAddress;
           for (const [ip, item] of tentativas)
@@ -111,6 +135,14 @@ export function criarServidor({ db, secret, secure = false, publicOrigin }) {
         if (route === "GET /api/saude") {
           await db.prepare("SELECT 1").get();
           return enviar(200, { status: "ok", banco: "conectado" });
+        }
+        if (route === "GET /api/auth-config")
+          return enviar(200, { verificacao_email: Boolean(email) });
+        if (email && route === "POST /api/reenviar-codigo")
+          return enviar(202, await email.reenviar(body));
+        if (email && route === "POST /api/confirmar-email") {
+          const r = await email.confirmar(body);
+          return enviar(200, r.usuario, { "Set-Cookie": cookie(r.token) });
         }
         if (route === "GET /api/conteudos")
           return enviar(200, await c.conteudos());
@@ -132,8 +164,11 @@ export function criarServidor({ db, secret, secure = false, publicOrigin }) {
             await c.progresso(req, Number(url.pathname.split("/")[3])),
           );
         if (route === "POST /api/cadastro")
-          return enviar(201, await c.cadastrar(body));
+          return email
+            ? enviar(202, await email.iniciarCadastro(body))
+            : enviar(201, await c.cadastrar(body));
         if (route === "POST /api/login") {
+          if (email) return enviar(202, await email.iniciarLogin(body));
           const r = await c.login(body);
           return enviar(200, r.usuario, { "Set-Cookie": cookie(r.token) });
         }
@@ -204,8 +239,13 @@ if (
   process.argv[1] &&
   resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
-  if (process.env.NODE_ENV === "production" && process.env.DB_DRIVER !== "mysql")
-    throw Error("Produção exige DB_DRIVER=mysql e banco persistente configurado.");
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.DB_DRIVER !== "mysql"
+  )
+    throw Error(
+      "Produção exige DB_DRIVER=mysql e banco persistente configurado.",
+    );
   const db =
     process.env.DB_DRIVER === "mysql"
       ? await conectarMySQL()
@@ -215,9 +255,16 @@ if (
     secret: process.env.JWT_SECRET,
     secure: process.env.NODE_ENV === "production",
     publicOrigin: process.env.PUBLIC_ORIGIN,
+    emailVerification: configurarEmail(),
   })
-    .listen(Number(process.env.PORT || 3000), process.env.HOST || (process.env.NODE_ENV === "production" ? "0.0.0.0" : "127.0.0.1"), () =>
-      console.log("FinStart: servidor iniciado na porta " + (process.env.PORT || 3000)),
+    .listen(
+      Number(process.env.PORT || 3000),
+      process.env.HOST ||
+        (process.env.NODE_ENV === "production" ? "0.0.0.0" : "127.0.0.1"),
+      () =>
+        console.log(
+          "FinStart: servidor iniciado na porta " + (process.env.PORT || 3000),
+        ),
     )
     .on("error", (error) => {
       console.error(

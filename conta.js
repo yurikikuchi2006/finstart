@@ -1,6 +1,39 @@
 import { carregarPainel } from "./painel.js";
 import { api } from "./api.js";
 const $ = (id) => document.getElementById(id);
+let desafio;
+let contadorReenvio;
+function aguardarReenvio() {
+  clearInterval(contadorReenvio);
+  const atualizarContador = () => {
+    const segundos = Math.max(
+      0,
+      desafio?.reenvio_em - Math.floor(Date.now() / 1000),
+    );
+    $("reenviar").disabled = !desafio || segundos > 0;
+    $("reenvio-status").textContent = segundos
+      ? `Você pode solicitar outro código em ${segundos} segundos.`
+      : "Não recebeu? Confira o spam ou solicite um novo código.";
+    if (!segundos) clearInterval(contadorReenvio);
+  };
+  atualizarContador();
+  contadorReenvio = setInterval(atualizarContador, 1000);
+}
+function pedirCodigo(resposta, email) {
+  desafio = resposta;
+  $("formularios").hidden = true;
+  $("perfil").hidden = true;
+  $("verificacao").hidden = false;
+  $("verificacao-titulo").textContent =
+    resposta.finalidade === "cadastro"
+      ? "Confirme seu e-mail para criar a conta"
+      : "Confirme seu acesso";
+  $("verificacao-destino").textContent =
+    `Enviamos um código para ${email}. Confira também o spam.`;
+  $("codigo").value = "";
+  aguardarReenvio();
+  $("codigo").focus();
+}
 const mostrar = (texto) => {
   $("mensagem").textContent = texto;
 };
@@ -9,6 +42,7 @@ async function atualizar() {
     const user = await api("me");
     $("formularios").hidden = true;
     $("perfil").hidden = false;
+    $("verificacao").hidden = true;
     $("boas-vindas").textContent = "Olá, " + user.nome;
     await carregarPainel();
   } catch {
@@ -26,8 +60,13 @@ for (const id of ["login", "cadastro"])
     botao.disabled = true;
     try {
       const body = Object.fromEntries(new FormData(form));
-      await api(id, "POST", body);
+      const resposta = await api(id, "POST", body);
       form.reset();
+      if (resposta?.desafio_id) {
+        mostrar(resposta.mensagem);
+        pedirCodigo(resposta, body.email);
+        return;
+      }
       if (id === "cadastro") {
         mostrar("Conta criada. Entre com seu e-mail e senha.");
         $("contador").textContent = "0/50 caracteres";
@@ -43,6 +82,56 @@ for (const id of ["login", "cadastro"])
       botao.disabled = false;
     }
   });
+$("codigo-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!desafio) return;
+  const button = event.submitter;
+  button.disabled = true;
+  try {
+    await api("confirmar-email", "POST", {
+      desafio_id: desafio.desafio_id,
+      codigo: $("codigo").value.trim(),
+    });
+    desafio = undefined;
+    clearInterval(contadorReenvio);
+    $("codigo-form").reset();
+    mostrar("E-mail confirmado. Login realizado.");
+    await atualizar();
+  } catch (e) {
+    mostrar(e.message);
+    $("codigo").setAttribute("aria-invalid", "true");
+    $("codigo").focus();
+  } finally {
+    button.disabled = false;
+  }
+});
+$("reenviar").addEventListener("click", async () => {
+  if (!desafio) return;
+  $("reenviar").disabled = true;
+  try {
+    desafio = await api("reenviar-codigo", "POST", {
+      desafio_id: desafio.desafio_id,
+    });
+    $("codigo").value = "";
+    mostrar(desafio.mensagem);
+    aguardarReenvio();
+  } catch (e) {
+    mostrar(e.message);
+    if (desafio) {
+      desafio.reenvio_em = Math.floor(Date.now() / 1000) + 60;
+      aguardarReenvio();
+    }
+  }
+});
+$("cancelar-codigo").addEventListener("click", () => {
+  desafio = undefined;
+  clearInterval(contadorReenvio);
+  $("codigo-form").reset();
+  $("verificacao").hidden = true;
+  $("formularios").hidden = false;
+  mostrar("Você pode entrar ou iniciar um novo cadastro.");
+  $("login-email").focus();
+});
 $("nome").addEventListener(
   "input",
   () => ($("contador").textContent = $("nome").value.length + "/50 caracteres"),

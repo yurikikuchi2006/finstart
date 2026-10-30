@@ -95,6 +95,34 @@
           ><button>Criar conta</button>
         </form>
       </section>
+      <section id="verificacao" hidden aria-labelledby="verificacao-titulo">
+        <h2 id="verificacao-titulo">Confirme seu e-mail</h2>
+        <p id="verificacao-destino"></p>
+        <p>
+          Digite o código de seis dígitos. Ele vale por dez minutos. Não
+          compartilhe o código.
+        </p>
+        <form id="codigo-form" method="post" action="/api/confirmar-email">
+          <label for="codigo">Código recebido por e-mail</label>
+          <input
+            id="codigo"
+            name="codigo"
+            type="text"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            minlength="6"
+            required
+          />
+          <button type="submit">Confirmar código</button>
+        </form>
+        <p id="reenvio-status" aria-live="off"></p>
+        <button type="button" id="reenviar" disabled>Reenviar código</button>
+        <button type="button" id="cancelar-codigo">
+          Voltar para entrar ou cadastrar
+        </button>
+      </section>
       <section id="perfil" hidden>
         <h2 id="boas-vindas"></h2>
         <p>Seus objetivos e ferramentas de planejamento em um só lugar.</p>

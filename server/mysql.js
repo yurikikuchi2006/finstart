@@ -56,12 +56,16 @@ export async function conectarMySQL() {
     dateStrings: true,
     connectionLimit: 5,
     timezone: "Z",
-    ...(process.env.DB_SSL === "true" ? {
-      ssl: {
-        rejectUnauthorized: true,
-        ...(process.env.DB_SSL_CA ? { ca: process.env.DB_SSL_CA.replace(/\\n/g, "\n") } : {}),
-      },
-    } : {}),
+    ...(process.env.DB_SSL === "true"
+      ? {
+          ssl: {
+            rejectUnauthorized: true,
+            ...(process.env.DB_SSL_CA
+              ? { ca: process.env.DB_SSL_CA.replace(/\\n/g, "\n") }
+              : {}),
+          },
+        }
+      : {}),
   });
   pool.on("connection", (connection) =>
     connection.query("SET time_zone = '+00:00'"),
@@ -76,6 +80,13 @@ export async function conectarMySQL() {
       .map((s) => s.trim())
       .filter(Boolean))
       await pool.query(statement);
+    const [emailFields] = await pool.query(
+      "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='usuarios' AND COLUMN_NAME='email_verificado_em'",
+    );
+    if (!emailFields.length)
+      await pool.query(
+        "ALTER TABLE usuarios ADD COLUMN email_verificado_em BIGINT NULL",
+      );
     const [contentFields] = await pool.query(
       "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA=DATABASE() AND TABLE_NAME='conteudo' AND COLUMN_NAME='fontes_json'",
     );

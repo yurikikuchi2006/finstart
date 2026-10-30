@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
  nome VARCHAR(255) NOT NULL CHECK(length(nome) BETWEEN 3 AND 50),
  email VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL UNIQUE,
  senha_hash VARCHAR(255) NOT NULL,
+ email_verificado_em BIGINT,
  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 CREATE TABLE IF NOT EXISTS simulacoes (
@@ -64,4 +65,17 @@ CREATE TABLE IF NOT EXISTS progresso_meta (
  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, meta_id INT NOT NULL, FOREIGN KEY (meta_id) REFERENCES metas(id) ON DELETE CASCADE,
  variacao_centavos BIGINT NOT NULL, saldo_centavos BIGINT NOT NULL CHECK(saldo_centavos>=0),
  data_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS desafios_email (
+ id VARCHAR(64) PRIMARY KEY, finalidade VARCHAR(16) NOT NULL,
+ email VARCHAR(255) COLLATE utf8mb4_unicode_ci NOT NULL, nome VARCHAR(255) NOT NULL,
+ senha_hash VARCHAR(255), usuario_id INT,
+ codigo_hash VARCHAR(64) NOT NULL, expira_em BIGINT NOT NULL,
+ enviado_em BIGINT NOT NULL, tentativas INT NOT NULL DEFAULT 0,
+ FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS email_limites (
+ chave VARCHAR(64) PRIMARY KEY, janela BIGINT NOT NULL,
+ usados INT NOT NULL, proximo_envio BIGINT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

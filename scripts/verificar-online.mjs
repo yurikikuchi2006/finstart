@@ -12,6 +12,11 @@ async function call(path,method='GET',body,session=cookie) {
 const ok=(label)=>console.log('PASS '+label);
 assert.equal((await fetch(base)).status,200);ok('pagina publica');
 assert.equal((await call('saude')).data.banco,'conectado');ok('proxy e MySQL');
+const config=await call('auth-config');
+if(config.status===200&&config.data.verificacao_email){
+ console.log('SKIP fluxos autenticados deste script legado: verificação por e-mail ativa. Use uma caixa postal própria e o roteiro de docs/VERIFICACAO-EMAIL.md. Nenhum cadastro ou e-mail fictício foi enviado.');
+ process.exit(0);
+}
 assert.equal((await call('me')).status,401);
 assert.equal((await call('cadastro','POST',conta)).status,201);ok('cadastro');
 const login=await call('login','POST',conta);assert.equal(login.status,200);

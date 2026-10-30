@@ -1,0 +1,21 @@
+{
+  "provider": "simulado; nenhum e-mail real",
+  "flows": [
+    "cadastro pendente sem usuário e sem sessão",
+    "código incorreto",
+    "confirmação cria conta e sessão",
+    "logout",
+    "login exige código novo",
+    "intervalo de reenvio",
+    "reenvio invalida código anterior",
+    "novo código conclui login",
+    "logout final"
+  ],
+  "widths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "pageErrors": []
+}

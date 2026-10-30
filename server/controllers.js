@@ -7,6 +7,30 @@ import {
   verificarToken,
 } from "./auth.js";
 const erro = (status, message) => Object.assign(Error(message), { status });
+export function prepararCadastro({ nome, email, senha }) {
+  if (
+    typeof nome !== "string" ||
+    nome.trim().length < 3 ||
+    nome.trim().length > 50 ||
+    typeof email !== "string" ||
+    email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
+    typeof senha !== "string" ||
+    senha.length < 8 ||
+    senha.length > 128 ||
+    !/\p{L}/u.test(senha) ||
+    !/\d/.test(senha)
+  )
+    throw erro(
+      400,
+      "Informe nome (3–50 caracteres), e-mail válido e senha de 8–128 caracteres com letra e número.",
+    );
+  return {
+    nome: nome.trim(),
+    email: email.trim().toLowerCase(),
+    senha_hash: hashSenha(senha),
+  };
+}
 export function controllers(db, secret) {
   async function autenticar(req) {
     const token = /(?:^|;\s*)finstart=([^;]+)/.exec(
@@ -253,7 +277,7 @@ export function controllers(db, secret) {
         throw e;
       }
     },
-    async login(body) {
+    async validarCredenciais(body) {
       if (
         typeof body.email !== "string" ||
         typeof body.senha !== "string" ||
@@ -268,14 +292,25 @@ export function controllers(db, secret) {
         row?.senha_hash || hashSenha("credencial-inexistente"),
       );
       if (!row || !valid) throw erro(401, "E-mail ou senha incorretos.");
-      const s = emitirToken(row.id, secret);
-      await db
+      return { id: row.id, nome: row.nome, email: row.email };
+    },
+    async abrirSessao(id, banco = db) {
+      const s = emitirToken(id, secret);
+      await banco
         .prepare("DELETE FROM sessoes WHERE expira_em<=?")
         .run(Math.floor(Date.now() / 1000));
-      await db
+      await banco
         .prepare("INSERT INTO sessoes(id,usuario_id,expira_em) VALUES(?,?,?)")
-        .run(s.claims.jti, row.id, s.claims.exp);
-      return { token: s.token, usuario: await usuario(row.id) };
+        .run(s.claims.jti, id, s.claims.exp);
+      return {
+        token: s.token,
+        usuario: await banco
+          .prepare("SELECT id,nome,email FROM usuarios WHERE id=?")
+          .get(id),
+      };
+    },
+    async login(body) {
+      return this.abrirSessao((await this.validarCredenciais(body)).id);
     },
     async me(req) {
       return usuario((await autenticar(req)).sub);

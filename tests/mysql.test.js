@@ -111,7 +111,7 @@ test(
         .get();
       assert.ok(fk.n >= 8);
       console.log(
-        "MySQL: 10 tabelas, " +
+        "MySQL: esquema relacional, " +
           fk.n +
           " relacionamentos, persistência e rollback comprovados.",
       );
