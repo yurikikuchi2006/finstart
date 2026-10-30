@@ -9,7 +9,7 @@
     "evidencias": "node scripts/evidencias.js"
   },
   "engines": {
-    "node": ">=24"
+    "node": "24.x"
   },
   "dependencies": {
     "express": "^5.3.0",
