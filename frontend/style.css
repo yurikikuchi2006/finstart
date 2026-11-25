@@ -77,8 +77,19 @@ nav a[aria-current="page"] {
   color: #f7df8b;
   background: #302819;
 }
-nav a[href="conta.html"] {
-  border: 1px solid #796631;
+header nav a[href="conta.html"],
+.painel-compacto {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: #211a08;
+}
+header nav a[href="conta.html"]:hover,
+header nav a[href="conta.html"][aria-current="page"],
+.painel-compacto:hover {
+  background: #f1d482;
+}
+.painel-compacto {
+  display: none;
 }
 header :focus-visible {
   outline-color: #e9c66a;
@@ -661,10 +672,23 @@ footer {
   header {
     position: relative;
     z-index: 1;
-    padding: 10px 20px;
+    padding: 10px 16px;
   }
   header img {
-    width: 60px;
+    width: 52px;
+  }
+  .painel-compacto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin-inline-start: auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
   }
   .menu-toggle {
     display: inline-flex;
@@ -673,7 +697,8 @@ footer {
     background: transparent;
     color: #f3e6b7;
     border-color: #6d5d32;
-    padding: 10px 16px;
+    min-height: 44px;
+    padding: 8px 10px;
   }
   .menu-toggle:hover,
   .menu-toggle[aria-expanded="true"] {
@@ -716,6 +741,10 @@ footer {
     grid-template-columns: 1fr 1fr;
     gap: 6px;
     padding: 12px 0;
+  }
+  header nav li:has(> a[href="index.html"]),
+  header nav li:has(> a[href="conta.html"]) {
+    display: none;
   }
   nav a {
     min-height: 44px;

@@ -13,6 +13,7 @@ if ("IntersectionObserver" in window && !reduzirMovimento.matches) {
 }
 const cabecalho = menu.parentElement;
 const telaCompacta = matchMedia("(max-width: 700px)");
+const painel = menu.querySelector('a[href="conta.html"]');
 const toggle = document.createElement("button");
 toggle.type = "button";
 toggle.className = "menu-toggle";
@@ -58,6 +59,9 @@ for (const a of menu.querySelectorAll("a")) {
   )
     a.setAttribute("aria-current", "page");
 }
+const painelCompacto = painel.cloneNode(true);
+painelCompacto.classList.add("painel-compacto");
+toggle.before(painelCompacto);
 const footer = document.createElement("footer");
 const brand = document.createElement("span"),
   info = document.createElement("span");
