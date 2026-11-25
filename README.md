@@ -50,7 +50,7 @@ São 12 tabelas e 9 relacionamentos, incluindo desafios de e-mail e limites de e
 
 Instale também as dependências de desenvolvimento com `npm install --ignore-scripts` ou `pnpm install --frozen-lockfile`.
 
-- `node --test`: 20 testes locais aprovados e um MySQL opcional ignorado na suíte padrão; a integração MySQL é opcional e aparece como ignorada sem configuração.
+- `node --test`: 21 testes locais aprovados e um MySQL opcional ignorado na suíte padrão; a integração MySQL é opcional e aparece como ignorada sem configuração.
 - MySQL isolado: configure um `.env` para um banco exclusivo de teste e use `FINSTART_TEST_MYSQL=1` com `node --env-file=.env --test tests/mysql.test.js`. Não use um banco de produção para testes.
 - `node scripts/evidencias.js`: gera evidências HTTP/SQL com dados fictícios em SQLite temporário.
 - `npm run backup`: lê o `.env` e cria backup privado em `backups/`. SQLite usa cópia consistente; MySQL usa `mysqldump --single-transaction`, sem senha nos argumentos do processo. A restauração de um dump deve ser feita em banco vazio, com acesso administrativo, após verificar o destino.

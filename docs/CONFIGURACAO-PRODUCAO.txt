@@ -7,7 +7,7 @@ Código: https://github.com/yurikikuchi2006/finstart
 VERCEL
 Publicar somente a saída de node scripts/build-static.js.
 vercel.json contém o destino do proxy /api e os cabeçalhos.
-A publicação pelo GitHub foi validada: build node scripts/build-static.js, saída dist, 25 arquivos públicos.
+A publicação pelo GitHub foi validada: build node scripts/build-static.js, saída dist, 26 arquivos públicos.
 
 RENDER (serviço Node nativo)
 Build: pnpm install --frozen-lockfile

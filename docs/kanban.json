@@ -1,19 +1,20 @@
 {
-  "revisao": "2026-10-28",
+  "revisao": "2026-11-25",
   "criterio_concluido": "Código implementado e cenário relevante verificado. Sem atribuição retroativa de autoria ou reuniões.",
   "a_fazer": [
-    "Conferir o modelo oficial de Avisos para a terceira entrega",
-    "Apresentação oral e explicação individual do grupo",
-    "Publicar o código após obter acesso de colaborador no GitHub do grupo"
+    "Comprovar criação, edição e persistência de meta em produção",
+    "Validar recuperação de senha com e-mail real em produção",
+    "Finalizar fichas de extensão e reunir a comprovação das horas",
+    "Conferir /api/saude 15 minutos antes da apresentação"
   ],
-  "em_andamento": ["Preparação do pacote de correção e conferência pelo grupo"],
+  "em_andamento": [
+    "Preparação da demonstração da quarta entrega"
+  ],
   "concluido": [
-    "Ampliar telas: aprender, comparação, metas completas e progresso",
-    "Integrar Express, API, autenticação e SQL",
-    "Validar MySQL 8.0.45 isolado e manter SQLite local com dados preservados",
-    "Aplicar práticas das aulas 01–15 nos pontos pertinentes",
-    "Verificar 10 cenários de teste locais e 1 integração MySQL",
-    "Conferir oito páginas em 320, 390, 768 e 1280 px"
+    "Publicar a revisão da interface e conferir o menu móvel",
+    "Validar cálculo e passagem de parâmetros do orçamento à meta em produção",
+    "Validar persistência da meta e recuperação de senha com e-mail simulado no ambiente local",
+    "Consolidar documentação e evidências da quarta entrega"
   ],
   "historico_observavel": [
     {
@@ -27,6 +28,10 @@
     {
       "data": "2026-10-28",
       "evento": "Correção documental preparada para revisão do grupo. A publicação permanece pendente."
+    },
+    {
+      "data": "2026-11-25",
+      "evento": "O fluxo público de cálculo e navegação e a conexão da API com o MySQL foram conferidos."
     }
   ]
 }

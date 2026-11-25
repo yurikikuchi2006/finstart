@@ -38,7 +38,7 @@ SHA-256 do dump: `81636286b40129fb38f135d0dc3cb017a945e03ae4f37746d49d21024dfea6
 - A Vercel publicou automaticamente commits da cópia de Yuri como Ready. O serviço Render existente foi alterado, com autorização específica, para essa cópia e publicou ee936f2 como Live. A opção de repositório público informa que os próximos deploys são manuais; integração Git do Render continua pendente.
 - Definir responsável, frequência e armazenamento externo protegido dos backups; repetir restauração periodicamente. A existência de uma cópia local não configura agendamento ou retenção automática.
 - PDF e DOCX foram atualizados mantendo as 16 páginas e nove seções do modelo; todas as páginas renderizadas foram revisadas.
-- Recuperação de senha e verificação de e-mail continuam fora do escopo implementado.
+- Na rodada de 29/10, estes fluxos ainda não faziam parte da validação. A revisão atual implementa confirmação por e-mail e recuperação de senha. A recuperação foi testada localmente com envio simulado. O envio real em produção ainda precisa ser validado.
 
 ## Apresentação e manutenção
 

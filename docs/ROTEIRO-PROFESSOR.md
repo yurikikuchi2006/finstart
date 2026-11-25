@@ -1,45 +1,19 @@
 # Roteiro de apresentação da FinStart
 
-Link público: https://finstart-publicacao.vercel.app/
-Código: https://github.com/yurikikuchi2006/finstart
+- [Site publicado](https://finstart-publicacao.vercel.app/)
+- [Saúde da API](https://finstart-publicacao.vercel.app/api/saude)
+- [Validação e evidências](ENTREGA-4.md)
 
-## O caminho de uma informação
+## Sequência da demonstração
 
-Navegador → Vercel (HTML, CSS e JavaScript) → Render (API Node.js) → Aiven (MySQL).
-A resposta percorre o caminho inverso para aparecer na tela. O Brevo entrega os códigos de confirmação por e-mail; o servidor gera e valida esses códigos.
+1. Abrir /api/saude 15 minutos antes. Confirmar status ok e banco conectado. Abrir a página inicial e mostrar a navegação no celular.
+2. Calcular o orçamento com renda de R$ 3.000, transferir a reserva de R$ 600 para Juros e abrir a meta preenchida.
+3. Entrar com uma conta de demonstração, criar a meta, alterar o valor guardado e mostrar o progresso e o painel.
+4. Sair e entrar novamente para conferir o valor persistido. Explicar o caminho navegador → Vercel → Render → Aiven.
+5. Mostrar o acesso à recuperação de senha e informar o resultado do teste com e-mail real. Apresentar rotas, DER, scripts SQL e evidências.
 
-## Demonstração sugerida — 8 a 10 minutos
+## Situação da validação
 
-1. Abra o link público da Vercel. Mostre que funciona pela internet, sem extrair o ZIP ou iniciar o servidor no computador.
-2. Crie uma conta de demonstração com uma caixa de e-mail que você controla. Confirme o código diretamente no site. Não mostre senha ou código na projeção.
-3. Salve um orçamento com valores fictícios. Recarregue a página e mostre que o registro continua disponível.
-4. Mostre projeção de juros, criação e edição de uma meta, histórico do progresso e comparação de investimentos. Termine mostrando busca e filtros da biblioteca.
-5. Saia e entre novamente. Confirme o novo código e recupere os registros salvos.
-6. Abra o GitHub: mostre HTML/CSS/JavaScript, pasta server, arquivos SQL e histórico de commits. O ZIP é uma cópia para entrega; a publicação utiliza o repositório.
-7. Abra a Vercel: mostre o domínio público e a publicação pronta. Explique que ela hospeda a interface e encaminha /api ao Render. Novos commits na branch main publicam a interface automaticamente.
-8. Abra o Render: mostre o serviço ativo e o commit publicado. Explique que ele valida dados, autentica usuários, faz cálculos e acessa o banco. A atualização da API nesta configuração é manual pelo painel.
-9. Abra o Aiven: mostre o serviço MySQL ativo e o esquema. Se apresentar uma consulta, use somente dados fictícios e colunas necessárias; não exiba hashes de senhas, sessões ou solicitações de códigos. Salvar e recuperar pelo site comprova a integração real, além do arquivo SQL.
+Em 25/11, a jornada pública transferiu o aporte do orçamento à projeção e o resultado para a meta. A API e o proxy responderam com MySQL conectado. O teste local confirmou a gravação da meta, a persistência após novo login e a redefinição de senha com envio simulado. A rodada publicada ainda precisa registrar os dois fluxos autenticados com e-mail real.
 
-## O que cada parte contém
-
-| Parte | Papel |
-| --- | --- |
-| GitHub | Código e histórico de alterações |
-| Vercel | Interface pública: HTML, CSS e JavaScript |
-| Render | API e regras do sistema; credenciais ficam privadas |
-| Aiven | Banco MySQL persistente, acessado pelo servidor com TLS |
-| Brevo | Entrega de mensagens com códigos de confirmação |
-| ZIP/PDF/DOCX | Materiais da entrega acadêmica |
-
-## Conferência antes da aula
-
-- Entre no site com antecedência: a instância gratuita do Render pode demorar para acordar após inatividade.
-- Confira /api/saude: a resposta esperada é status ok e banco conectado.
-- Teste recebimento do e-mail, inclusive spam, antes da demonstração.
-- Use valores fictícios e deixe os painéis autenticados nas páginas de visão geral.
-- Não projete variáveis privadas, chaves, cookies, senhas ou o backup SQL com dados de contas.
-- Confira se ZIP, documentação e publicação representam a mesma versão final.
-
-## Situação desta revisão
-
-Em 30/10/2026, o link público e a conexão SQL responderam corretamente. A confirmação por e-mail está ativa. Yuri confirmou o recebimento no cadastro e no login, além de salvar e recuperar dados com o novo acesso. As ferramentas e quatro larguras de tela foram verificadas nas rodadas documentadas. O relatório distingue testes automatizados, confirmação manual e limitações.
+Use dados fictícios e preserve a privacidade de senhas, códigos e endereços de e-mail nas capturas.
