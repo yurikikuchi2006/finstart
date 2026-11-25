@@ -1,6 +1,6 @@
 # FinStart
 
-Acesse o [FinStart publicado](https://finstart-publicacao.vercel.app/). A [documentação da 4ª entrega](docs/ENTREGA-4.md) reúne a evolução do projeto, as evidências de validação e o roteiro de demonstração. Os materiais das etapas anteriores permanecem em `docs/`.
+Acesse o [FinStart publicado](https://finstart-publicacao.vercel.app/). A [documentação da 4ª entrega](docs/ENTREGA-4.md) reúne a evolução do projeto, as evidências de validação e o roteiro de demonstração. Os relatórios anteriores estão no [arquivo histórico](docs/historico/).
 
 Plataforma web de educação financeira e planejamento para jovens. PUC-Campinas, Programação Web (2181161, conforme modelo oficial), turma 101.
 
@@ -57,15 +57,21 @@ Instale também as dependências de desenvolvimento com `npm install --ignore-sc
 
 ## Organização e entrega
 
-`server/` contém rotas, controllers, autenticação e adaptadores SQL; `database/`, os dois esquemas; `tests/`, verificações; `docs/`, PDFs, Kanban e evidências; `scripts/`, utilitários de verificação e backup. Páginas, estilos e módulos do site ficam em `frontend/`. O build copia os arquivos publicados para `dist/` e preserva os endereços das páginas. Os arquivos de inicialização são necessários.
-
-Relatórios atuais: **docs/FinStart-Entrega-2-Corrigida.pdf** e **docs/FinStart-3a-Entrega-Revisada.pdf**, com versões editáveis DOCX. Ambos seguem as nove seções, a capa e os cabeçalhos do modelo oficial, turma 101. O primeiro complementa a entrega histórica de 01/10 com a correção datada de 28/10; não afirma que os novos recursos já existiam na entrega original. Publicação concluída; conferência pelo grupo e envio no Canvas permanecem necessários.
+| Procurando por | Onde abrir |
+| --- | --- |
+| Materiais da 4ª entrega | [Documentação, roteiro e resultados](docs/ENTREGA-4.md) |
+| Telas, estilos e interações | [Front-end](frontend/) |
+| Rotas, autenticação e regras | [API](server/) |
+| Esquemas SQL | [Banco de dados](database/) |
+| Testes automatizados | [Testes](tests/) |
+| Utilitários de configuração e backup | [Scripts](scripts/) |
+| Relatórios das entregas anteriores | [Histórico](docs/historico/) |
 
 `.env`, `data/`, `node_modules/`, `tmp/`, logs e backups ficam fora do Git e do ZIP público. Cada instalação possui seu banco; o pacote não contém contas pessoais. O Kanban registra a revisão atual e não inventa reuniões ou movimentações passadas.
 
 ## Equipe
 
-Gabriel Polli Perin (25007439); Yuri Kikuchi (25007272); Enzo Cayres Ferreira (25000144); Eduardo dos Santos Fernandez (25000693); Paulo Henrique Scavariello Guimarães (25017738).
+Gabriel Polli Perin; Yuri Kikuchi; Enzo Cayres Ferreira; Eduardo dos Santos Fernandez; Paulo Henrique Scavariello Guimarães.
 
 Programação Web: Fernando Luiz de Almeida Silveira. Bancos de Dados Relacionais: Felipe Cavalaro.
 

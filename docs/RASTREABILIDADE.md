@@ -8,7 +8,7 @@ Os resultados de outubro são registros históricos. A revisão de novembro foi 
 | --- | --- | --- |
 | Consolidar o front-end e executar as funcionalidades que estavam parciais | Simplificamos a entrada da aplicação, melhoramos a leitura do painel e direcionamos o foco aos resultados dos cálculos. Os registros de [fluxo integrado](evidencias/validacao-final/fluxo-integrado-local.json) e de [navegação por teclado](evidencias/validacao-final/teclado-local.json) documentam as verificações locais. | Implementado e aprovado localmente nas interações verificadas. Falta validar a versão publicada. |
 | Fortalecer o fluxo principal da FinStart | A renda informada gera uma reserva mensal, que preenche o aporte de Juros. A projeção preenche valor e prazo da meta. O painel mostra a meta após a criação e após novo login. | Implementado e aprovado localmente. |
-| Incluir a coluna Situação atual nos requisitos não funcionais | A coluna consta no [relatório cumulativo](FinStart-3a-Entrega-Atualizada.docx) e na tabela de RNF abaixo. | Implementado. |
+| Incluir a coluna Situação atual nos requisitos não funcionais | A coluna consta no [relatório cumulativo](historico/FinStart-3a-Entrega-Atualizada.docx) e na tabela de RNF abaixo. | Implementado. |
 | Ligar requisitos ao código, aos testes e aos resultados | As tabelas abaixo relacionam os requisitos à implementação, aos testes e aos registros de evidência. O registro da revisão distingue evidência local de resultados históricos em produção. | Implementado para a revisão local. |
 | Finalizar a documentação cumulativa | Esta matriz registra a devolutiva e os resultados novos. A versão final do relatório e o pacote da entrega ainda precisam incorporar as evidências da versão publicada. | Parcial. |
 
