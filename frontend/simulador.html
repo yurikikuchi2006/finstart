@@ -34,7 +34,7 @@
     </header>
 
     <main id="principal">
-      <h1>Simulador de Orçamento Ideal</h1>
+      <h1>Organize seu orçamento</h1>
       <p>
         Aprenda a dividir o seu dinheiro de forma inteligente aplicando a Regra
         50/30/20 como ponto de partida. Adapte os percentuais à sua realidade.
@@ -59,32 +59,20 @@
         <div id="resultado">
           <h2 id="resultado-titulo" tabindex="-1">Sua divisão 50/30/20</h2>
 
-          <p>
-            <strong>Necessidades básicas · 50%</strong>
-            <span id="necessidades"></span>
-          </p>
-          <p>
-            Despesas essenciais como moradia, contas de água/luz, mercado e
-            transporte.
-          </p>
-
-          <p>
-            <strong>Desejos pessoais · 30%</strong>
-            <span id="desejos"></span>
-          </p>
-          <p>
-            Lazer, jantares fora, assinaturas (Netflix, Spotify) e compras não
-            essenciais.
-          </p>
-
-          <p>
-            <strong>Poupança e investimento · 20%</strong>
-            <span id="poupanca"></span>
-          </p>
-          <p>
-            Criação de reserva de emergência e investimentos para objetivos
-            futuros.
-          </p>
+          <dl class="orcamento-valores">
+            <div>
+              <dt>Necessidades · 50%</dt>
+              <dd><span id="necessidades"></span><p>Moradia, mercado, contas e transporte.</p></dd>
+            </div>
+            <div>
+              <dt>Desejos · 30%</dt>
+              <dd><span id="desejos"></span><p>Lazer, assinaturas e compras não essenciais.</p></dd>
+            </div>
+            <div>
+              <dt>Poupança · 20%</dt>
+              <dd><span id="poupanca"></span><p>Reserva de emergência e objetivos futuros.</p></dd>
+            </div>
+          </dl>
           <div class="acoes">
             <a class="botao" id="projetar-aporte" href="juros.html" hidden>Simular com o valor reservado</a>
             <button class="secondary" id="salvar" type="button" disabled>Salvar orçamento</button>
