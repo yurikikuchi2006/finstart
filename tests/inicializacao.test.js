@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { runInNewContext } from "node:vm";
-const script = readFileSync(new URL("../ambiente.js", import.meta.url), "utf8");
+const script = readFileSync(new URL("../frontend/ambiente.js", import.meta.url), "utf8");
 test("Arquivo local bloqueia envio e desabilita campos", () => {
   const handlers = {},
     controls = [{}, {}],
@@ -60,7 +60,7 @@ test("HTTP nao bloqueia cadastro normal e remove parametros de senha da URL", ()
   assert.equal(prevented, false);
 });
 test("Formularios de credenciais usam POST e protecao classica antes dos modulos", () => {
-  const html = readFileSync(new URL("../conta.html", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../frontend/conta.html", import.meta.url), "utf8");
   assert.match(html, /<form id="login" method="post" action="\/api\/login">/);
   assert.match(
     html,

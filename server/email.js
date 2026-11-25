@@ -9,8 +9,23 @@ export function configurarEmail(env = process.env, request = fetch) {
   return {
     async sendCode({ email, code, purpose }) {
       if (!/^\d{6}$/.test(code)) throw Error("Código de e-mail inválido.");
-      const titulo =
-        purpose === "cadastro" ? "Confirme seu e-mail" : "Confirme seu acesso";
+      const [titulo, assunto, instrucao] = {
+        cadastro: [
+          "Confirme seu e-mail",
+          "Confirme seu e-mail na FinStart",
+          "concluir seu cadastro na FinStart",
+        ],
+        login: [
+          "Confirme seu acesso",
+          "Seu código de acesso à FinStart",
+          "entrar na sua conta FinStart",
+        ],
+        redefinicao: [
+          "Redefina sua senha",
+          "Seu código para redefinir a senha da FinStart",
+          "definir uma nova senha na FinStart",
+        ],
+      }[purpose];
       let response;
       try {
         response = await request("https://api.brevo.com/v3/smtp/email", {
@@ -23,10 +38,7 @@ export function configurarEmail(env = process.env, request = fetch) {
           body: JSON.stringify({
             sender: { name: "FinStart", email: sender },
             to: [{ email }],
-            subject:
-              purpose === "cadastro"
-                ? "Confirme seu e-mail na FinStart"
-                : "Seu código de acesso à FinStart",
+            subject: assunto,
             textContent: `Seu código da FinStart é ${code}. Ele expira em 10 minutos e só pode ser usado uma vez.\n\nNão compartilhe este código. Se você não solicitou, ignore esta mensagem.`,
             htmlContent: `<!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
@@ -38,7 +50,7 @@ export function configurarEmail(env = process.env, request = fetch) {
 <p style="margin:14px 0 0;color:#e0bd45;font-size:14px;">Invista em conhecimento</p></td></tr>
 <tr><td style="padding:32px 24px;">
 <h1 style="margin:0 0 16px;font-size:28px;line-height:1.25;color:#171717;">${titulo}</h1>
-<p style="margin:0 0 24px;font-size:18px;line-height:1.6;">Use o código abaixo para ${purpose === "cadastro" ? "concluir seu cadastro na FinStart" : "entrar na sua conta FinStart"}:</p>
+<p style="margin:0 0 24px;font-size:18px;line-height:1.6;">Use o código abaixo para ${instrucao}:</p>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 8px;background:#faf5df;border:2px solid #b68a15;border-radius:12px;">
 <strong style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:1.3;font-weight:700;letter-spacing:6px;color:#171717;">${code}</strong></td></tr></table>
 <p style="margin:24px 0 12px;font-size:17px;line-height:1.6;">Válido por <strong>10 minutos</strong> e para <strong>um único uso</strong>. Digite-o na página da FinStart onde você iniciou a solicitação.</p>

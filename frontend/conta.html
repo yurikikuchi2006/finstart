@@ -35,7 +35,6 @@
       </nav>
     </header>
     <main id="principal">
-      <span class="eyebrow">SEU ESPAÇO FINSTART</span>
       <h1>Meu painel</h1>
       <p id="mensagem" role="status" aria-live="polite"></p>
       <section id="formularios">
@@ -57,6 +56,7 @@
             maxlength="128"
             required
           /><button>Entrar</button>
+          <button type="button" class="secondary" id="esqueci-senha" hidden>Esqueci minha senha</button>
         </form>
         <h2>Criar conta</h2>
         <form id="cadastro" method="post" action="/api/cadastro">
@@ -95,6 +95,23 @@
           ><button>Criar conta</button>
         </form>
       </section>
+      <section id="recuperacao" hidden aria-labelledby="recuperacao-titulo">
+        <h2 id="recuperacao-titulo">Redefinir senha</h2>
+        <form id="recuperar-form" method="post" action="/api/esqueci-senha">
+          <label for="recuperar-email">E-mail da conta</label>
+          <input id="recuperar-email" name="email" type="email" required maxlength="254" autocomplete="email" />
+          <button>Enviar código</button>
+        </form>
+        <form id="redefinir-form" method="post" action="/api/redefinir-senha" hidden>
+          <label for="recuperar-codigo">Código recebido por e-mail</label>
+          <input id="recuperar-codigo" name="codigo" type="text" required pattern="[0-9]{6}" maxlength="6" inputmode="numeric" autocomplete="one-time-code" />
+          <label for="nova-senha">Nova senha</label>
+          <input id="nova-senha" name="senha" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="nova-senha-ajuda" />
+          <small id="nova-senha-ajuda">Use pelo menos 8 caracteres, com letra e número.</small>
+          <button>Salvar nova senha</button>
+        </form>
+        <button type="button" id="cancelar-recuperacao">Voltar ao login</button>
+      </section>
       <section id="verificacao" hidden aria-labelledby="verificacao-titulo">
         <h2 id="verificacao-titulo">Confirme seu e-mail</h2>
         <p id="verificacao-destino"></p>
@@ -124,21 +141,28 @@
         </button>
       </section>
       <section id="perfil" hidden>
-        <h2 id="boas-vindas"></h2>
-        <p>Seus objetivos e ferramentas de planejamento em um só lugar.</p>
-        <p id="painel-status" role="status"></p>
-        <div id="indicadores" class="grid"></div>
-        <div class="acoes">
-          <a class="botao" href="simulador.html">Planejar orçamento</a
-          ><a class="botao" href="juros.html">Simular juros</a
-          ><a class="botao" href="metas.html">Gerenciar metas</a
-          ><a class="botao" href="comparar.html">Comparar cenários</a>
+        <div class="painel-cabecalho">
+          <h2 id="boas-vindas" tabindex="-1"></h2>
+          <button id="sair" class="secondary">Sair da conta</button>
         </div>
-        <h2>Minhas metas</h2>
-        <div id="painel-metas" class="grid"></div>
-        <h2>Simulações recentes</h2>
-        <div id="painel-simulacoes" class="grid"></div>
-        <button id="sair">Sair</button>
+        <p id="painel-status" role="status"></p>
+        <dl id="indicadores"></dl>
+        <div class="painel-registros">
+          <section aria-labelledby="painel-metas-titulo">
+            <h2 id="painel-metas-titulo">Minhas metas</h2>
+            <div id="painel-metas"></div>
+          </section>
+          <section aria-labelledby="painel-simulacoes-titulo">
+            <h2 id="painel-simulacoes-titulo">Simulações recentes</h2>
+            <div id="painel-simulacoes"></div>
+          </section>
+        </div>
+        <div class="painel-ferramentas">
+          <a href="simulador.html">Planejar orçamento</a>
+          <a href="juros.html">Simular juros</a>
+          <a href="metas.html">Gerenciar metas</a>
+          <a href="comparar.html">Comparar cenários</a>
+        </div>
       </section>
     </main>
   </body>

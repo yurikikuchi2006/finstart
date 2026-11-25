@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { projetar } from "../financas.js";
+import { projetar } from "../frontend/financas.js";
 import { conectar } from "../server/database.js";
 import { controllers } from "../server/controllers.js";
 test("Juros: zero, aportes no fim do mês e limites", () => {

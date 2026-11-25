@@ -5,6 +5,7 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 import { prepararCadastro } from "./controllers.js";
+import { hashSenha } from "./auth.js";
 const erro = (status, message) => Object.assign(Error(message), { status });
 const invalido = () =>
   erro(400, "Código inválido ou expirado. Solicite um novo código.");
@@ -98,7 +99,7 @@ export function verificacaoEmail(
     }
     return resposta(row);
   }
-  async function iniciar(body, finalidade) {
+  async function iniciar(body, finalidade, contaRecuperacao) {
     let account;
     if (finalidade === "cadastro") {
       account = prepararCadastro(body);
@@ -108,7 +109,8 @@ export function verificacaoEmail(
           .get(account.email)
       )
         throw erro(409, "E-mail já cadastrado. Entre na sua conta.");
-    } else account = await controllers.validarCredenciais(body);
+    } else if (contaRecuperacao) account = contaRecuperacao;
+    else account = await controllers.validarCredenciais(body);
     await reservar(account.email);
     const code = String(randomInt(1000000)).padStart(6, "0");
     const id = randomBytes(32).toString("hex");
@@ -125,8 +127,10 @@ export function verificacaoEmail(
     };
     await db.transaction(async (tx) => {
       await tx
-        .prepare("DELETE FROM desafios_email WHERE email=?")
-        .run(row.email);
+        .prepare(
+          "DELETE FROM desafios_email WHERE email=? AND (finalidade='redefinicao')=?",
+        )
+        .run(row.email, Number(finalidade === "redefinicao"));
       await tx
         .prepare(
           "INSERT INTO desafios_email(id,finalidade,email,nome,senha_hash,usuario_id,codigo_hash,expira_em,enviado_em,tentativas) VALUES(?,?,?,?,?,?,?,?,?,0)",
@@ -145,13 +149,38 @@ export function verificacaoEmail(
     });
     return enviar(row, code);
   }
+  async function esqueciSenha({ email }) {
+    if (
+      typeof email !== "string" ||
+      email.length > 254 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+    )
+      throw erro(400, "Informe um e-mail válido.");
+    const account = await db
+      .prepare("SELECT id,email,nome FROM usuarios WHERE email=?")
+      .get(email.trim().toLowerCase());
+    let desafio_id = randomBytes(32).toString("hex");
+    if (account) {
+      try {
+        ({ desafio_id } = await iniciar({}, "redefinicao", account));
+      } catch (e) {
+        if (e.status !== 429 && e.status !== 503) throw e;
+      }
+    }
+    return {
+      desafio_id,
+      mensagem:
+        "Se houver uma conta para esse e-mail, você receberá um código. Confira também o spam.",
+    };
+  }
   async function reenviar({ desafio_id }) {
     if (typeof desafio_id !== "string" || !/^[a-f0-9]{64}$/.test(desafio_id))
       throw invalido();
     const old = await db
       .prepare("SELECT * FROM desafios_email WHERE id=?")
       .get(desafio_id);
-    if (!old || old.expira_em <= now()) throw invalido();
+    if (!old || old.finalidade === "redefinicao" || old.expira_em <= now())
+      throw invalido();
     await reservar(old.email);
     let code;
     do {
@@ -177,7 +206,7 @@ export function verificacaoEmail(
     if (!r.changes) throw invalido();
     return enviar(row, code);
   }
-  async function confirmar({ desafio_id, codigo }) {
+  async function confirmar({ desafio_id, codigo, senha }, redefinir = false) {
     if (
       typeof desafio_id !== "string" ||
       !/^[a-f0-9]{64}$/.test(desafio_id) ||
@@ -188,7 +217,13 @@ export function verificacaoEmail(
     const row = await db
       .prepare("SELECT * FROM desafios_email WHERE id=?")
       .get(desafio_id);
-    if (!row || row.expira_em <= now() || row.tentativas >= 5) throw invalido();
+    if (
+      !row ||
+      (row.finalidade === "redefinicao") !== redefinir ||
+      row.expira_em <= now() ||
+      row.tentativas >= 5
+    )
+      throw invalido();
     const expected = Buffer.from(row.codigo_hash, "hex"),
       actual = Buffer.from(codeHash(row.id, codigo), "hex");
     if (
@@ -202,6 +237,21 @@ export function verificacaoEmail(
         .run(row.id);
       throw invalido();
     }
+    let senhaHash;
+    if (redefinir) {
+      if (
+        typeof senha !== "string" ||
+        senha.length < 8 ||
+        senha.length > 128 ||
+        !/\p{L}/u.test(senha) ||
+        !/\d/.test(senha)
+      )
+        throw erro(
+          400,
+          "Use uma senha de 8–128 caracteres com letra e número.",
+        );
+      senhaHash = hashSenha(senha);
+    }
     return db.transaction(async (tx) => {
       const claimed = await tx
         .prepare(
@@ -210,6 +260,17 @@ export function verificacaoEmail(
         .run(row.id, row.codigo_hash, now());
       if (!claimed.changes) throw invalido();
       let id = row.usuario_id;
+      if (redefinir) {
+        const user = await tx
+          .prepare("UPDATE usuarios SET senha_hash=? WHERE id=? AND email=?")
+          .run(senhaHash, id, row.email);
+        if (!user.changes) throw invalido();
+        await tx.prepare("DELETE FROM sessoes WHERE usuario_id=?").run(id);
+        await tx
+          .prepare("DELETE FROM desafios_email WHERE usuario_id=?")
+          .run(id);
+        return;
+      }
       if (row.finalidade === "cadastro") {
         if (
           await tx
@@ -242,5 +303,7 @@ export function verificacaoEmail(
     iniciarLogin: (body) => iniciar(body, "login"),
     reenviar,
     confirmar,
+    esqueciSenha,
+    redefinirSenha: (body) => confirmar(body, true),
   };
 }

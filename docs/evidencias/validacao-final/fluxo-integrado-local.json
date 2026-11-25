@@ -1,0 +1,40 @@
+{
+  "ambiente": "Edge, API local e SQLite em memória, e-mail simulado",
+  "larguras": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "paginas": [
+    "index",
+    "simulador",
+    "juros",
+    "metas",
+    "conta",
+    "comparar",
+    "aprender",
+    "projeto"
+  ],
+  "rolagemHorizontal": false,
+  "orcamento": {
+    "rendaCentavos": 300000,
+    "aporteTransferidoCentavos": 60000
+  },
+  "meta": {
+    "prazoMeses": 12,
+    "criada": true,
+    "visivelNoPainel": true,
+    "preservadaAposNovoLogin": true
+  },
+  "teclado": {
+    "focoNoResultado": [
+      "Orçamento",
+      "Juros",
+      "Comparar a 390 px"
+    ]
+  },
+  "comparacao": {
+    "tabelaVisivel": true
+  }
+}

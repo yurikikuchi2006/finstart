@@ -1,5 +1,5 @@
-import { projetar } from "../financas.js";
-import { MetaFinanceira } from "../dominio.js";
+import { projetar } from "../frontend/financas.js";
+import { MetaFinanceira } from "../frontend/dominio.js";
 import {
   hashSenha,
   conferirSenha,

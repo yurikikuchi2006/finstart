@@ -20,11 +20,15 @@ function calcular(event) {
     d = Math.round(renda * 0.3);
   $("necessidades").textContent = moeda(n);
   $("desejos").textContent = moeda(d);
-  $("poupanca").textContent = moeda(renda - n - d);
+  const reservado = renda - n - d;
+  $("poupanca").textContent = moeda(reservado);
+  $("projetar-aporte").href = "juros.html#aporte=" + reservado;
+  $("projetar-aporte").hidden = reservado <= 0;
   $("resultado").style.display = "block";
   $("salvar").disabled = false;
   $("status").textContent =
     "Simulação calculada. Você pode salvar na sua conta.";
+  $("resultado-titulo").focus();
 }
 $("orcamento").addEventListener("submit", calcular);
 $("receita").addEventListener("input", () => {

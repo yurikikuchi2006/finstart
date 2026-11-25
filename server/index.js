@@ -119,6 +119,8 @@ export function criarServidor({
             "POST /api/cadastro",
             "POST /api/confirmar-email",
             "POST /api/reenviar-codigo",
+            "POST /api/esqueci-senha",
+            "POST /api/redefinir-senha",
           ].includes(route)
         ) {
           const now = Date.now(),
@@ -138,6 +140,12 @@ export function criarServidor({
         }
         if (route === "GET /api/auth-config")
           return enviar(200, { verificacao_email: Boolean(email) });
+        if (email && route === "POST /api/esqueci-senha")
+          return enviar(202, await email.esqueciSenha(body));
+        if (email && route === "POST /api/redefinir-senha") {
+          await email.redefinirSenha(body);
+          return enviar(204, undefined, { "Set-Cookie": cookie("") });
+        }
         if (email && route === "POST /api/reenviar-codigo")
           return enviar(202, await email.reenviar(body));
         if (email && route === "POST /api/confirmar-email") {
@@ -217,7 +225,7 @@ export function criarServidor({
       const name = url.pathname === "/" ? "index.html" : url.pathname.slice(1);
       if (!["GET", "HEAD"].includes(req.method) || !publicos.has(name))
         return enviar(404, { erro: "Página não encontrada." });
-      const content = await readFile(resolve(root, name));
+      const content = await readFile(resolve(root, "frontend", name));
       const types = {
         ".html": "text/html; charset=utf-8",
         ".js": "text/javascript; charset=utf-8",

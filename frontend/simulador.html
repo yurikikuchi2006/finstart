@@ -53,18 +53,14 @@
             placeholder="Ex: 4000"
           />
 
-          <button type="submit">Calcular Divisão Ideal</button>
+          <button type="submit">Calcular orçamento</button>
         </form>
         <p id="status" role="status"></p>
-        <button id="salvar" type="button" disabled>
-          Salvar na minha conta
-        </button>
-
         <div id="resultado">
-          <h2>Uma referência para o seu orçamento:</h2>
+          <h2 id="resultado-titulo" tabindex="-1">Sua divisão 50/30/20</h2>
 
           <p>
-            <strong>🏠 Necessidades Básicas (50%):</strong>
+            <strong>Necessidades básicas · 50%</strong>
             <span id="necessidades"></span>
           </p>
           <p>
@@ -73,7 +69,7 @@
           </p>
 
           <p>
-            <strong>🛒 Desejos Pessoais (30%):</strong>
+            <strong>Desejos pessoais · 30%</strong>
             <span id="desejos"></span>
           </p>
           <p>
@@ -82,13 +78,17 @@
           </p>
 
           <p>
-            <strong>📈 Poupança e Investimento (20%):</strong>
+            <strong>Poupança e investimento · 20%</strong>
             <span id="poupanca"></span>
           </p>
           <p>
             Criação de reserva de emergência e investimentos para objetivos
             futuros.
           </p>
+          <div class="acoes">
+            <a class="botao" id="projetar-aporte" href="juros.html" hidden>Simular com o valor reservado</a>
+            <button class="secondary" id="salvar" type="button" disabled>Salvar orçamento</button>
+          </div>
         </div>
       </div>
       <h2>Meu histórico</h2>

@@ -1,6 +1,14 @@
 import { api } from "./api.js";
 import { $, moeda, card, aviso } from "./ui.js";
 import { tabelaGrafico } from "./graficos.js";
+const parametros = new URLSearchParams(location.hash.slice(1));
+const alvo = Number(parametros.get("alvo"));
+const prazo = Number(parametros.get("prazo"));
+if (Number.isInteger(alvo) && alvo >= 1 && alvo <= 100000000000 &&
+    Number.isInteger(prazo) && prazo >= 1 && prazo <= 600) {
+  $("alvo").value = (alvo / 100).toFixed(2);
+  $("prazo").value = String(prazo);
+}
 function campo(form, id, texto, value, props = {}) {
   const label = document.createElement("label"),
     input = document.createElement("input"),
@@ -30,6 +38,9 @@ async function listar() {
           `${moeda(r.guardado_centavos)} de ${moeda(r.alvo_centavos)} · ${r.percentual}%`,
         ),
         progress = document.createElement("progress");
+      const heading = el.querySelector("h3");
+      heading.id = "meta-titulo-" + r.id;
+      heading.tabIndex = -1;
       progress.max = r.alvo_centavos;
       progress.value = r.guardado_centavos;
       progress.setAttribute("aria-label", "Progresso de " + r.titulo);
@@ -51,7 +62,7 @@ async function listar() {
           "alvo-" + r.id,
           "Objetivo (R$)",
           r.alvo_centavos / 100,
-          { type: "number", min: "0.01", max: "1000000000", step: "1" },
+          { type: "number", min: "0.01", max: "1000000000", step: "0.01" },
         ),
         prazo = campo(
           form,
@@ -65,7 +76,7 @@ async function listar() {
           "guardado-" + r.id,
           "Total já guardado (R$)",
           r.guardado_centavos / 100,
-          { type: "number", min: "0", max: "1000000000", step: "1" },
+          { type: "number", min: "0", max: "1000000000", step: "0.01" },
         ),
         save = document.createElement("button");
       save.textContent = "Salvar alterações";
@@ -82,6 +93,7 @@ async function listar() {
           });
           await listar();
           aviso("status", "Meta atualizada e progresso registrado.");
+          $("meta-titulo-" + r.id)?.focus();
         } catch (err) {
           aviso("status", err);
           save.disabled = false;
@@ -119,6 +131,7 @@ async function listar() {
           await api("metas/" + r.id, "DELETE");
           await listar();
           aviso("status", "Meta excluída.");
+          $("titulo").focus();
         } catch (e) {
           aviso("status", e);
         }
@@ -136,7 +149,7 @@ $("meta-form").addEventListener("submit", async (e) => {
   const b = e.submitter;
   b.disabled = true;
   try {
-    await api("metas", "POST", {
+    const meta = await api("metas", "POST", {
       titulo: $("titulo").value,
       alvo_centavos: Math.round(Number($("alvo").value) * 100),
       prazo_meses: Number($("prazo").value),
@@ -144,6 +157,7 @@ $("meta-form").addEventListener("submit", async (e) => {
     e.target.reset();
     await listar();
     aviso("status", "Meta criada.");
+    $("meta-titulo-" + meta.id)?.focus();
   } catch (err) {
     aviso("status", err);
   } finally {

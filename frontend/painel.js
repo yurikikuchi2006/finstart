@@ -1,5 +1,22 @@
 import { api } from "./api.js";
 import { $, moeda, card } from "./ui.js";
+function indicador(rotulo, valor) {
+  const grupo = document.createElement("div");
+  const termo = document.createElement("dt");
+  const numero = document.createElement("dd");
+  termo.textContent = rotulo;
+  numero.textContent = valor;
+  grupo.append(termo, numero);
+  return grupo;
+}
+function estadoVazio(titulo, texto, rotulo, href) {
+  const aviso = card(titulo, texto);
+  const link = document.createElement("a");
+  link.href = href;
+  link.textContent = rotulo;
+  aviso.append(link);
+  return aviso;
+}
 export async function carregarPainel() {
   $("painel-status").textContent = "Carregando seus dados…";
   try {
@@ -11,14 +28,14 @@ export async function carregarPainel() {
     ]);
     const total = metas.reduce((s, m) => s + m.guardado_centavos, 0);
     $("indicadores").replaceChildren(
-      card(
+      indicador(
         "Metas ativas",
         String(
           metas.filter((m) => m.guardado_centavos < m.alvo_centavos).length,
         ),
       ),
-      card("Guardado nas metas", moeda(total)),
-      card(
+      indicador("Guardado nas metas", moeda(total)),
+      indicador(
         "Simulações no histórico",
         String(
           orcamentos.length +
@@ -29,18 +46,24 @@ export async function carregarPainel() {
     );
     $("painel-metas").replaceChildren();
     for (const m of metas.slice(0, 4)) {
-      $("painel-metas").append(
-        card(
-          m.titulo,
-          `${moeda(m.guardado_centavos)} de ${moeda(m.alvo_centavos)} · ${Math.round((100 * m.guardado_centavos) / m.alvo_centavos)}%`,
-        ),
+      const meta = card(
+        m.titulo,
+        `${moeda(m.guardado_centavos)} de ${moeda(m.alvo_centavos)} · ${Math.round((100 * m.guardado_centavos) / m.alvo_centavos)}%`,
       );
+      const progresso = document.createElement("progress");
+      progresso.max = m.alvo_centavos;
+      progresso.value = m.guardado_centavos;
+      progresso.setAttribute("aria-label", "Progresso de " + m.titulo);
+      meta.append(progresso);
+      $("painel-metas").append(meta);
     }
     if (!metas.length)
       $("painel-metas").append(
-        card(
+        estadoVazio(
           "Qual é seu próximo objetivo?",
-          "Crie uma meta e acompanhe seu progresso.",
+          "Defina um valor e acompanhe quanto já conseguiu guardar.",
+          "Criar primeira meta",
+          "metas.html",
         ),
       );
     $("painel-simulacoes").replaceChildren();
@@ -67,9 +90,11 @@ export async function carregarPainel() {
     }
     if (!recentes.length)
       $("painel-simulacoes").append(
-        card(
-          "Experimente as ferramentas",
+        estadoVazio(
+          "Nenhuma simulação salva",
           "Suas simulações salvas aparecerão aqui.",
+          "Começar meu orçamento",
+          "simulador.html",
         ),
       );
     $("painel-status").textContent =

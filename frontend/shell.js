@@ -7,10 +7,16 @@ toggle.setAttribute("aria-expanded", "false");
 menu.id = "navegacao";
 toggle.setAttribute("aria-controls", "navegacao");
 menu.before(toggle);
-toggle.addEventListener("click", () => {
-  const aberto = menu.classList.toggle("aberto");
+function definirMenu(aberto) {
+  menu.classList.toggle("aberto", aberto);
   toggle.setAttribute("aria-expanded", String(aberto));
   toggle.textContent = aberto ? "Fechar ×" : "Menu ☰";
+}
+toggle.addEventListener("click", () => definirMenu(!menu.classList.contains("aberto")));
+menu.parentElement.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape" || !menu.classList.contains("aberto")) return;
+  definirMenu(false);
+  toggle.focus();
 });
 for (const a of menu.querySelectorAll("a")) {
   if (

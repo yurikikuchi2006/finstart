@@ -4,6 +4,7 @@
   padding: 0;
 }
 :root {
+  color-scheme: dark;
   font-family: "Segoe UI", system-ui, sans-serif;
   color: #eeeae0;
   background: #101010;
@@ -81,6 +82,7 @@ main {
 h1,
 h2,
 h3 {
+  text-wrap: balance;
   font-weight: 650;
   line-height: 1.13;
   letter-spacing: -0.035em;
@@ -123,39 +125,29 @@ p {
 .hero h1 {
   font-size: clamp(2.5rem, 4.5vw, 4.3rem);
 }
-.hero p {
+.hero-copy > p {
   font-size: 1.06rem;
   max-width: 53ch;
   margin: 24px 0;
 }
-.hero .botao {
-  margin-right: 10px;
-}
 .hero-copy {
   min-width: 0;
-}
-.hero-visual {
-  background: #262217;
-  border-radius: 28px;
-  padding: 30px;
-  transform: rotate(2deg);
-  box-shadow: inset 0 0 0 1px #483d22;
 }
 .demo-window {
   background: #171717;
   border: 1px solid #51442b;
   border-radius: 16px;
   padding: 26px;
-  box-shadow: 0 22px 40px #00000055;
-  transform: rotate(-2deg);
 }
 .demo-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: #a59f8c;
+  font-size: 0.875rem;
+  color: #d2c7aa;
   border-bottom: 1px solid var(--line);
   padding-bottom: 18px;
+}
+.demo-label {
+  font-size: 0.875rem;
+  margin: 16px 0 0;
 }
 .demo-value {
   font-size: 2.7rem;
@@ -190,13 +182,32 @@ p {
   width: 20%;
   background: #d7b94f;
 }
-.demo-foot {
-  background: #2c2618;
-  padding: 12px;
-  border-radius: 10px;
-  margin-top: 18px;
-  font-size: 0.8rem;
-  color: #dac279;
+.demo-value,
+.demo-row strong,
+#resultado span,
+#resumo .card p,
+#indicadores dd,
+td {
+  font-variant-numeric: tabular-nums;
+}
+.jornada ol {
+  list-style-position: inside;
+  border-top: 1px solid var(--line);
+}
+.jornada li {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.jornada li::marker {
+  color: var(--gold);
+  font-weight: 650;
+}
+.jornada a {
+  margin-inline-start: 8px;
+  font-weight: 650;
+}
+.jornada p {
+  margin: 4px 0 0 25px;
 }
 .grid {
   display: grid;
@@ -267,20 +278,19 @@ input:focus-visible {
   outline: 3px solid #a48015;
   outline-offset: 4px;
 }
+[tabindex="-1"]:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
 .acoes {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin: 26px 0;
+  align-items: center;
 }
-.acoes .botao {
-  background: #1b1b1b;
-  color: #d4af37;
-  border-color: #66552e;
-}
-.acoes .botao:first-child {
-  background: #d4af37;
-  color: #e9d38e;
+.hero-copy .acoes > a:not(.botao) {
+  padding: 10px 0;
 }
 label {
   display: block;
@@ -366,16 +376,95 @@ form button {
   padding: 8px;
   min-height: 40px;
 }
-#indicadores .card p {
-  font-size: 2rem;
-  font-weight: 650;
-  color: #d4af37;
-  line-height: 1.25;
+#esqueci-senha {
+  margin-top: 8px;
 }
-#indicadores h3 {
-  font-size: 0.84rem;
-  letter-spacing: 0;
-  color: #b0a78e;
+.painel-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.painel-cabecalho h2 {
+  margin: 0;
+}
+#painel-status {
+  margin: 12px 0 20px;
+  font-size: 0.875rem;
+}
+#indicadores {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+#indicadores > div {
+  background: #181714;
+  padding: 18px 24px;
+}
+#indicadores dt {
+  color: #c4bda9;
+  font-size: 0.875rem;
+}
+#indicadores dd {
+  color: var(--ink);
+  font-size: 1.75rem;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.painel-registros {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px;
+}
+.painel-registros h2 {
+  font-size: 1.25rem;
+}
+.painel-registros .card {
+  margin-bottom: 12px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: none;
+}
+.painel-registros .card p {
+  margin-bottom: 8px;
+}
+.painel-ferramentas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.painel-ferramentas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+@media (max-width: 620px) {
+  #indicadores,
+  .painel-registros {
+    grid-template-columns: 1fr;
+  }
+  #indicadores > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  #indicadores dd {
+    text-align: end;
+    font-size: 1.25rem;
+  }
+  .painel-registros {
+    gap: 0;
+  }
 }
 #sair {
   background: transparent;
@@ -442,29 +531,18 @@ progress {
   font-size: 1.6rem;
   font-weight: 650;
 }
-#resultado {
-  background: #1b1b1b !important;
-  border-color: #af9538 !important;
-}
-#resultado h3,
-#resultado span {
-  color: #d4af37 !important;
-}
-#resultado p {
-  color: #bdb4a0 !important;
-}
 #mensagem:not(:empty),
 #status:not(:empty),
 #status-historico:not(:empty) {
   padding: 12px 16px;
   background: #2d2719;
-  border-left: 3px solid #d4af37;
+  border: 1px solid #66552e;
   border-radius: 5px;
   font-size: 0.9rem;
 }
 blockquote {
   padding: 18px 24px;
-  border-left: 3px solid #b69e4b;
+  border-left: 1px solid #b69e4b;
   background: #201e19;
   margin-top: 24px;
   color: #c4b897;
@@ -518,9 +596,6 @@ footer {
   .hero {
     gap: 24px;
   }
-  .hero-visual {
-    padding: 18px;
-  }
   .demo-window {
     padding: 20px;
   }
@@ -570,15 +645,8 @@ footer {
   .hero h1 {
     font-size: 2.65rem;
   }
-  .hero p {
+  .hero-copy > p {
     font-size: 1rem;
-  }
-  .hero-visual {
-    transform: none;
-    padding: 20px;
-  }
-  .demo-window {
-    transform: none;
   }
   .grid {
     gap: 14px;
@@ -647,31 +715,8 @@ footer {
   }
 }
 
-.acoes .botao:first-child {
-  color: #17130a;
-}
-.acoes .botao {
-  color: #e3c975;
-  background: #1b1b1b;
-}
-.demo-top {
-  color: #bcb29a;
-}
-#resultado h3,
-#resultado span {
-  color: #e6c66b !important;
-}
-#resultado p {
-  color: #bdb8ab !important;
-}
-.hero-visual {
-  background: radial-gradient(ellipse at 50% 30%, #4a3c1c 0%, #211f19 70%);
-}
 .demo-value {
   color: #f4ecd4;
-}
-#indicadores .card p {
-  color: #e5c362;
 }
 /* Sobre: composição editorial com a identidade FinStart. */
 .sobre-hero {
@@ -734,10 +779,10 @@ footer {
   font-weight: 600;
 }
 .manifesto-base small {
-  font-size: 0.76rem;
+  font-size: 0.875rem;
   font-weight: 400;
   margin: 0;
-  color: #a89d83;
+  color: #cfc2a2;
 }
 .selo {
   width: 42px;
@@ -771,18 +816,6 @@ footer {
 .sobre .section-heading h2 {
   margin-top: 0;
 }
-.sobre .section-heading .eyebrow {
-  margin-bottom: 12px;
-}
-.passo-numero {
-  display: block;
-  font-size: 2.7rem;
-  font-weight: 350;
-  line-height: 1;
-  color: #8d783d;
-  letter-spacing: -0.05em;
-  margin: 0 0 30px;
-}
 .sobre-passos .card {
   display: flex;
   flex-direction: column;
@@ -812,7 +845,7 @@ footer {
   margin-top: 24px;
 }
 .ods span {
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   color: #c9b776;
   border: 1px solid #54482b;
   padding: 8px 12px;
@@ -835,9 +868,9 @@ footer {
   color: #c5bfae;
 }
 .sobre-equipe p {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   margin: 24px 0 0;
-  color: #918977;
+  color: #bdb4a0;
 }
 .sobre-equipe strong {
   color: #d5cdbb;
@@ -915,7 +948,7 @@ footer {
   .sobre-equipe {
     border-left: 0;
     border-top: 1px solid #413a29;
-    padding: 24px 0 0;
+    padding: 24px 12px 0;
   }
   .sobre-convite {
     flex-direction: column;
@@ -1060,6 +1093,11 @@ input[aria-invalid="true"] {
   color: #e1bf51;
   border: 1px solid #77622e;
 }
+.secondary:hover,
+.money-step:hover {
+  background: #3a311c;
+  color: #f4d77e;
+}
 @media (min-width: 760px) {
   #lista,
   #artigos {
@@ -1120,7 +1158,7 @@ select:focus-visible {
   background: #171611;
   padding: 1.25rem;
   border-radius: 0.5rem;
-  border-left: 4px solid var(--gold);
+  border: 1px solid var(--line);
 }
 #resultado h2 {
   font-size: 1.5rem;
@@ -1129,8 +1167,12 @@ select:focus-visible {
 #resultado p {
   font-size: 0.95rem;
 }
+#resultado .acoes {
+  margin-bottom: 0;
+}
 #resultado span {
   color: #e6c66b;
+  font-weight: 650;
 }
 
 .learning-card {

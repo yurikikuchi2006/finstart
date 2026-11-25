@@ -3,6 +3,11 @@ import { api } from "./api.js";
 import { projetar } from "./financas.js";
 import { $, moeda, card, aviso } from "./ui.js";
 let dados;
+const aporte = Number(new URLSearchParams(location.hash.slice(1)).get("aporte"));
+if (Number.isInteger(aporte) && aporte > 0 && aporte <= 100000000000) {
+  $("aporte").value = (aporte / 100).toFixed(2);
+  aviso("status", "Aporte mensal preenchido com o valor reservado no orçamento.");
+}
 async function listar() {
   try {
     const rows = await api("juros");
@@ -49,6 +54,12 @@ $("juros-form").addEventListener("submit", (e) => {
       meses: Number($("meses").value),
     };
     const p = projetar(dados);
+    const linkMeta = $("criar-meta-projecao");
+    linkMeta.hidden = p.saldo_centavos < 1 || p.saldo_centavos > 100000000000;
+    linkMeta.href = "metas.html#" + new URLSearchParams({
+      alvo: p.saldo_centavos,
+      prazo: dados.meses,
+    });
     $("resumo").replaceChildren(
       card("Saldo projetado", moeda(p.saldo_centavos)),
       card("Total investido", moeda(p.investido_centavos)),
@@ -65,8 +76,10 @@ $("juros-form").addEventListener("submit", (e) => {
     $("projecao").hidden = false;
     $("salvar").disabled = false;
     aviso("status", "Projeção calculada.");
+    $("projecao-titulo").focus();
   } catch (err) {
     dados = undefined;
+    $("projecao").hidden = true;
     aviso("status", err);
   }
 });

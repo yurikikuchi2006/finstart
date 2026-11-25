@@ -1,5 +1,7 @@
 # FinStart
 
+Revisão da terceira entrega: [relatório atualizado](docs/FinStart-3a-Entrega-Atualizada.docx) e [matriz de rastreabilidade](docs/RASTREABILIDADE.md).
+
 Publicação mantida por Yuri: https://github.com/yurikikuchi2006/finstart. Esta cópia preserva o histórico do repositório acadêmico https://github.com/enzocayresferreira7-pixel/finstart. Para o status operacional mais recente, consulte [a validação complementar](docs/VALIDACAO-FINAL.md); o PDF e o DOCX foram atualizados com os resultados comprovados.
 
 Plataforma web de educação financeira e planejamento para jovens. PUC-Campinas, Programação Web (2181161, conforme modelo oficial), turma 101.
@@ -57,7 +59,7 @@ Instale também as dependências de desenvolvimento com `npm install --ignore-sc
 
 ## Organização e entrega
 
-`server/` contém rotas, controllers, autenticação e adaptadores SQL; `database/`, os dois esquemas; `tests/`, verificações; `docs/`, PDFs, Kanban e evidências; `scripts/`, utilitários de verificação e backup. Páginas, estilos e módulos compartilhados ficam na raiz para manter o site multipágina simples. Os arquivos de inicialização são necessários.
+`server/` contém rotas, controllers, autenticação e adaptadores SQL; `database/`, os dois esquemas; `tests/`, verificações; `docs/`, PDFs, Kanban e evidências; `scripts/`, utilitários de verificação e backup. Páginas, estilos e módulos do site ficam em `frontend/`. O build copia os arquivos publicados para `dist/` e preserva os endereços das páginas. Os arquivos de inicialização são necessários.
 
 Relatórios atuais: **docs/FinStart-Entrega-2-Corrigida.pdf** e **docs/FinStart-3a-Entrega-Revisada.pdf**, com versões editáveis DOCX. Ambos seguem as nove seções, a capa e os cabeçalhos do modelo oficial, turma 101. O primeiro complementa a entrega histórica de 01/10 com a correção datada de 28/10; não afirma que os novos recursos já existiam na entrega original. Publicação concluída; conferência pelo grupo e envio no Canvas permanecem necessários.
 

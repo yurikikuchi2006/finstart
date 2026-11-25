@@ -60,7 +60,9 @@ $("comparar-form").addEventListener("submit", async (e) => {
       aporte_centavos: Math.round(Number($("aporte").value) * 100),
       meses: Number($("meses").value),
     };
-    const rows = await api("comparar", "POST", dados);
+    const solicitacao = dados;
+    const rows = await api("comparar", "POST", solicitacao);
+    if (dados !== solicitacao) return;
     tabelaGrafico(
       $("grafico"),
       "Comparação dos saldos finais",
@@ -75,6 +77,7 @@ $("comparar-form").addEventListener("submit", async (e) => {
       "status",
       "Calculado com taxas hipotéticas, constantes e aportes no fim do mês.",
     );
+    $("comparativo-titulo").focus();
   } catch (err) {
     dados = undefined;
     aviso("status", err);

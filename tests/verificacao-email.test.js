@@ -54,6 +54,42 @@ async function fixture(fn, { failure = false } = {}) {
     db.close();
   }
 }
+test("Redefinição por e-mail troca a senha uma vez e encerra sessões antigas", () =>
+  fixture(async ({ outbox, call, advance }) => {
+    const cadastro = await call("cadastro", "POST", body);
+    const session = await call("confirmar-email", "POST", {
+      desafio_id: cadastro.data.desafio_id,
+      codigo: outbox.at(-1).code,
+    });
+    advance(61);
+    const pedido = await call("esqueci-senha", "POST", { email: body.email });
+    const desconhecido = await call("esqueci-senha", "POST", {
+      email: "desconhecido@example.test",
+    });
+    assert.equal(pedido.status, 202);
+    assert.equal(desconhecido.status, 202);
+    assert.equal(pedido.data.mensagem, desconhecido.data.mensagem);
+    assert.equal(outbox.length, 2);
+    assert.equal(outbox.at(-1).purpose, "redefinicao");
+    const dados = {
+      desafio_id: pedido.data.desafio_id,
+      codigo: outbox.at(-1).code,
+      senha: "OutraSenha123!",
+    };
+    assert.equal((await call("confirmar-email", "POST", dados)).status, 400);
+    assert.equal((await call("redefinir-senha", "POST", dados)).status, 204);
+    assert.equal((await call("redefinir-senha", "POST", dados)).status, 400);
+    assert.equal(
+      (await call("me", "GET", undefined, session.cookie.split(";")[0])).status,
+      401,
+    );
+    assert.equal((await call("login", "POST", body)).status, 401);
+    advance(61);
+    assert.equal(
+      (await call("login", "POST", { ...body, senha: dados.senha })).status,
+      202,
+    );
+  }));
 test("E-mail: cadastro só existe após código, sessão protegida e uso único", () =>
   fixture(async ({ db, outbox, call }) => {
     assert.equal((await call("auth-config")).data.verificacao_email, true);

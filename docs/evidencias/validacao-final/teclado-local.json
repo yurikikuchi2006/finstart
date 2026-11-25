@@ -1,0 +1,12 @@
+{
+  "ambiente": "Edge a 390 px, API local, SQLite em memória e e-mail simulado",
+  "resultado": "aprovado",
+  "verificacoes": [
+    "link de salto",
+    "menu móvel, Tab e Esc",
+    "busca, seleção, limpar filtros e leitura expansível",
+    "cadastro, código, saída e novo login",
+    "criação, edição, progresso e exclusão de meta",
+    "recuperação de senha por teclado"
+  ]
+}
