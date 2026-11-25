@@ -87,13 +87,3 @@ prazos.addEventListener("click", (e) => {
   if (!botao || botao.getAttribute("aria-pressed") === "true") return;
   mostrar(Number(botao.value), e.detail > 0);
 });
-
-if ("IntersectionObserver" in window && !movimentoReduzido.matches) {
-  const observador = new IntersectionObserver(([visivel]) => {
-    if (!visivel.isIntersecting) return;
-    observador.disconnect();
-    if (!movimentoReduzido.matches && !visivel.target.matches(":focus-within"))
-      visivel.target.classList.add("jornada-entrada");
-  }, { threshold: 0.18 });
-  observador.observe(document.querySelector(".jornada"));
-}

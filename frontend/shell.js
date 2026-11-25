@@ -1,4 +1,16 @@
 const menu = document.querySelector("header nav");
+const reduzirMovimento = matchMedia("(prefers-reduced-motion: reduce)");
+if ("IntersectionObserver" in window && !reduzirMovimento.matches) {
+  const entradas = new IntersectionObserver((registros) => {
+    for (const { target, isIntersecting } of registros) {
+      if (!isIntersecting) continue;
+      entradas.unobserve(target);
+      if (!reduzirMovimento.matches && !target.matches(":focus-within"))
+        target.classList.add("secao-visivel");
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll("[data-entrada]").forEach((secao) => entradas.observe(secao));
+}
 const cabecalho = menu.parentElement;
 const telaCompacta = matchMedia("(max-width: 700px)");
 const toggle = document.createElement("button");

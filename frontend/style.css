@@ -236,7 +236,7 @@ p {
   font-size: 0.925rem;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .jornada-entrada:not(:focus-within) {
+  .secao-visivel:not(:focus-within) {
     animation: entrada-jornada 250ms var(--ease-out);
   }
   @keyframes entrada-jornada {
@@ -1128,12 +1128,42 @@ th[scope="row"] {
   margin: 0.75rem 0;
   font-size: 0.9rem;
 }
+.chart-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.chart-controles label {
+  min-width: 0;
+  flex: 1 1 190px;
+  margin: 0;
+}
+.chart-controles select {
+  margin-top: 4px;
+}
+.chart-controles output {
+  color: var(--accent-dark);
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
 .chart .barra {
   display: block;
   min-height: 8px;
   margin-top: 0.35rem;
-  background: var(--accent);
+  background: #8caa9a;
   border-radius: 4px;
+}
+.chart-selecionado {
+  font-weight: 650;
+}
+.chart-selecionado .barra {
+  background: var(--accent);
 }
 .grid > * {
   min-width: 0;

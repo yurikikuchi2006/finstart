@@ -29,6 +29,7 @@ export function tabelaGrafico(container, titulo, pontos) {
   }
   head.append(hr);
   const max = Math.max(1, ...pontos.map((p) => p.valor));
+  const linhas = [];
   for (const p of pontos) {
     const row = document.createElement("div"),
       bar = document.createElement("span"),
@@ -41,6 +42,7 @@ export function tabelaGrafico(container, titulo, pontos) {
     bar.style.width = Math.max(0, (100 * p.valor) / max) + "%";
     row.append(bar);
     bars.append(row);
+    linhas.push(row);
     th.scope = "row";
     th.textContent = p.rotulo;
     td.textContent = moeda(p.valor);
@@ -49,6 +51,32 @@ export function tabelaGrafico(container, titulo, pontos) {
   }
   table.append(caption, head, body);
   wrap.append(table);
-  figure.append(cap, bars, wrap);
+  figure.append(cap);
+  if (pontos.length > 1) {
+    const controles = document.createElement("div");
+    const label = document.createElement("label");
+    const seletor = document.createElement("select");
+    const valor = document.createElement("output");
+    controles.className = "chart-controles";
+    label.textContent = "Explorar valores";
+    seletor.setAttribute("aria-label", "Explorar valores de " + titulo.toLowerCase());
+    for (const [i, ponto] of pontos.entries())
+      seletor.add(new Option(ponto.rotulo, String(i)));
+    seletor.value = String(pontos.length - 1);
+    let selecionada;
+    function destacar() {
+      const indice = Number(seletor.value);
+      selecionada?.classList.remove("chart-selecionado");
+      selecionada = linhas[indice];
+      selecionada.classList.add("chart-selecionado");
+      valor.textContent = moeda(pontos[indice].valor);
+    }
+    seletor.addEventListener("change", destacar);
+    destacar();
+    label.append(seletor);
+    controles.append(label, valor);
+    figure.append(controles);
+  }
+  figure.append(bars, wrap);
   container.append(figure);
 }
