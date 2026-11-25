@@ -13,6 +13,7 @@
   --ink: #f3eee0;
   --muted: #a7a49c;
   --line: #35332d;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 }
 body {
   min-width: 0;
@@ -182,6 +183,18 @@ p {
   width: 20%;
   background: #d7b94f;
 }
+@media (prefers-reduced-motion: no-preference) {
+  .demo-bar {
+    transform-origin: left center;
+    animation: mostrar-divisao 260ms var(--ease-out);
+  }
+  @keyframes mostrar-divisao {
+    from {
+      opacity: 0.55;
+      transform: scaleX(0.95);
+    }
+  }
+}
 .demo-value,
 .demo-row strong,
 #resultado span,
@@ -223,12 +236,6 @@ td {
   min-width: 0;
   overflow-wrap: anywhere;
   box-shadow: 0 4px 16px #00000010;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-}
-.card:hover {
-  box-shadow: 0 10px 28px #00000030;
 }
 .card .eyebrow {
   margin-bottom: 30px;
@@ -258,15 +265,15 @@ button {
   line-height: 1.4;
   transition:
     background 0.15s,
-    transform 0.15s;
+    transform 120ms var(--ease-out);
 }
 button:hover,
 .botao:hover {
   background: #e6c75e;
 }
-button:active,
+button:enabled:active,
 .botao:active {
-  transform: translateY(1px);
+  transform: scale(0.98);
 }
 button:disabled {
   opacity: 0.48;
@@ -583,6 +590,10 @@ footer {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+  button:enabled:active,
+  .botao:active {
+    transform: none;
+  }
 }
 @media (max-width: 900px) {
   header {
@@ -602,7 +613,8 @@ footer {
 }
 @media (max-width: 700px) {
   header {
-    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
     padding: 10px 20px;
   }
   header img {
@@ -617,12 +629,41 @@ footer {
     border-color: #6d5d32;
     padding: 10px 16px;
   }
+  .menu-toggle:hover,
+  .menu-toggle[aria-expanded="true"] {
+    background: #302819;
+    color: #f7df8b;
+  }
   header nav {
     display: none;
-    width: 100%;
+    position: absolute;
+    inset: 100% 0 auto;
+    background: #141310;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--line);
   }
   header nav.aberto {
     display: block;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    header nav.menu-movimento {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition:
+        opacity 160ms var(--ease-out),
+        transform 160ms var(--ease-out),
+        display 160ms allow-discrete;
+    }
+    header nav.menu-movimento.aberto {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @starting-style {
+      header nav.menu-movimento.aberto {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+    }
   }
   nav ul {
     display: grid;
@@ -631,6 +672,7 @@ footer {
     padding: 12px 0;
   }
   nav a {
+    min-height: 44px;
     padding: 13px;
     font-size: 0.87rem;
   }

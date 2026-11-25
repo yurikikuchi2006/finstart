@@ -1,4 +1,6 @@
 const menu = document.querySelector("header nav");
+const cabecalho = menu.parentElement;
+const telaCompacta = matchMedia("(max-width: 700px)");
 const toggle = document.createElement("button");
 toggle.type = "button";
 toggle.className = "menu-toggle";
@@ -7,17 +9,36 @@ toggle.setAttribute("aria-expanded", "false");
 menu.id = "navegacao";
 toggle.setAttribute("aria-controls", "navegacao");
 menu.before(toggle);
-function definirMenu(aberto) {
+function definirMenu(aberto, movimento = false) {
+  menu.classList.toggle("menu-movimento", movimento);
   menu.classList.toggle("aberto", aberto);
+  menu.inert = telaCompacta.matches && !aberto;
   toggle.setAttribute("aria-expanded", String(aberto));
   toggle.textContent = aberto ? "Fechar ×" : "Menu ☰";
 }
-toggle.addEventListener("click", () => definirMenu(!menu.classList.contains("aberto")));
-menu.parentElement.addEventListener("keydown", (e) => {
+toggle.addEventListener("click", (e) => definirMenu(
+  !menu.classList.contains("aberto"), e.detail > 0,
+));
+cabecalho.addEventListener("keydown", (e) => {
   if (e.key !== "Escape" || !menu.classList.contains("aberto")) return;
   definirMenu(false);
   toggle.focus();
 });
+document.addEventListener("click", (e) => {
+  if (cabecalho.contains(e.target) || !menu.classList.contains("aberto")) return;
+  if (menu.contains(document.activeElement)) toggle.focus();
+  definirMenu(false, e.detail > 0);
+});
+document.addEventListener("focusin", (e) => {
+  if (!cabecalho.contains(e.target) && menu.classList.contains("aberto"))
+    definirMenu(false);
+});
+telaCompacta.addEventListener("change", () => {
+  const focoNoMenu = menu.contains(document.activeElement);
+  definirMenu(false);
+  if (telaCompacta.matches && focoNoMenu) toggle.focus();
+});
+definirMenu(false);
 for (const a of menu.querySelectorAll("a")) {
   if (
     a.pathname === location.pathname ||
