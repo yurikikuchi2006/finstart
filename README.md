@@ -1,8 +1,6 @@
 # FinStart
 
-Revisão da terceira entrega: [relatório atualizado](docs/FinStart-3a-Entrega-Atualizada.docx) e [matriz de rastreabilidade](docs/RASTREABILIDADE.md).
-
-Publicação mantida por Yuri: https://github.com/yurikikuchi2006/finstart. Esta cópia preserva o histórico do repositório acadêmico https://github.com/enzocayresferreira7-pixel/finstart. Para o status operacional mais recente, consulte [a validação complementar](docs/VALIDACAO-FINAL.md); o PDF e o DOCX foram atualizados com os resultados comprovados.
+Acesse o [FinStart publicado](https://finstart-publicacao.vercel.app/). A [documentação da 4ª entrega](docs/ENTREGA-4.md) reúne a evolução do projeto, as evidências de validação e o roteiro de demonstração. Os materiais das etapas anteriores permanecem em `docs/`.
 
 Plataforma web de educação financeira e planejamento para jovens. PUC-Campinas, Programação Web (2181161, conforme modelo oficial), turma 101.
 
@@ -28,7 +26,7 @@ Alternativa pelo terminal: `npm install --omit=dev --ignore-scripts`, configurar
 - Juros compostos, gráfico e tabela de evolução.
 - Comparação de três cenários hipotéticos com taxas anuais predefinidas e histórico.
 - Metas com criação, consulta, edição, exclusão, prazo, cálculo mensal necessário e registros de progresso.
-- Painel por conta e navegação responsiva em preto e dourado.
+- Painel por conta e navegação responsiva, com acesso direto ao painel no celular.
 
 As projeções não incluem inflação, tarifas ou impostos. Os cenários não são produtos reais, cotações ou promessa de rendimento.
 

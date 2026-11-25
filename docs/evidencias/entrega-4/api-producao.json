@@ -1,0 +1,63 @@
+{
+  "data": "2026-11-25",
+  "commitFront": "dcd2a8b",
+  "commitApi": "7805ec8",
+  "logs": [
+    {
+      "host": "https://finstart-api-l60v.onrender.com",
+      "rota": "saude",
+      "metodo": "GET",
+      "status": 200,
+      "resultado": {
+        "status": "ok",
+        "banco": "conectado"
+      }
+    },
+    {
+      "host": "https://finstart-publicacao.vercel.app",
+      "rota": "saude",
+      "metodo": "GET",
+      "status": 200,
+      "resultado": {
+        "status": "ok",
+        "banco": "conectado"
+      }
+    },
+    {
+      "host": "https://finstart-publicacao.vercel.app",
+      "rota": "auth-config",
+      "metodo": "GET",
+      "status": 200,
+      "resultado": {
+        "verificacao_email": true
+      }
+    },
+    {
+      "host": "https://finstart-publicacao.vercel.app",
+      "rota": "conteudos",
+      "metodo": "GET",
+      "status": 200,
+      "resultado": {
+        "conteudos": 15
+      }
+    },
+    {
+      "host": "https://finstart-publicacao.vercel.app",
+      "rota": "calcular",
+      "metodo": "POST",
+      "status": 200,
+      "resultado": {
+        "saldo_centavos": 621355
+      }
+    },
+    {
+      "host": "https://finstart-publicacao.vercel.app",
+      "rota": "metas",
+      "metodo": "GET",
+      "status": 401,
+      "resultado": {
+        "restrito": true
+      }
+    }
+  ]
+}
