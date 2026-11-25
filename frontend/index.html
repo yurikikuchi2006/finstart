@@ -11,8 +11,9 @@
       content="FinStart é uma plataforma de educação financeira para ajudar jovens a compreender e planejar melhor suas finanças."
     />
     <script type="module" src="shell.js"></script>
+    <script type="module" src="inicio.js"></script>
   </head>
-  <body>
+  <body class="inicio">
     <a class="skip-link" href="#principal">Pular para o conteúdo</a>
     <header>
       <a href="index.html"
@@ -46,25 +47,26 @@
             <a href="conta.html">Acessar meu painel</a>
           </div>
         </div>
-        <div class="hero-visual" aria-label="Exemplo ilustrativo de orçamento">
-          <div class="demo-window">
-            <div class="demo-top">
-              <span>Exemplo de orçamento 50/30/20</span>
-            </div>
-            <p class="demo-label">Renda mensal</p>
-            <div class="demo-value">R$ 3.000,00</div>
-            <div class="demo-bar"><span></span><span></span><span></span></div>
-            <div class="demo-row">
-              <span>Necessidades · 50%</span><strong>R$ 1.500</strong>
-            </div>
-            <div class="demo-row">
-              <span>Desejos · 30%</span><strong>R$ 900</strong>
-            </div>
-            <div class="demo-row">
-              <span>Poupança · 20%</span><strong>R$ 600</strong>
-            </div>
+        <section class="projecao-demo" aria-labelledby="demo-titulo">
+          <h2 id="demo-titulo">Quanto rende guardar R$ 600 por mês?</h2>
+          <p>Exemplo com saldo inicial zero e taxa hipotética de 0,5% ao mês.</p>
+          <div class="projecao-demo-prazos" role="group" aria-label="Prazo da projeção" hidden>
+            <button type="button" value="12" aria-pressed="true">12 meses</button>
+            <button type="button" value="24" aria-pressed="false">24 meses</button>
+            <button type="button" value="36" aria-pressed="false">36 meses</button>
           </div>
-        </div>
+          <div class="projecao-demo-valor" role="status" aria-live="polite" aria-atomic="true">
+            <strong id="demo-saldo">R$ 7.401,34</strong>
+            <span id="demo-periodo">em 12 meses</span>
+            <p id="demo-composicao">R$ 7.200,00 em aportes · R$ 201,34 em juros</p>
+          </div>
+          <div class="projecao-demo-grafico" aria-hidden="true" hidden>
+            <canvas id="demo-grafico" width="720" height="260"></canvas>
+            <div><span>Mês 0</span><span id="demo-mes">Mês 12</span></div>
+            <p>Linha contínua: saldo projetado. Tracejada: aportes.</p>
+          </div>
+          <a href="juros.html">Simular com meus valores</a>
+        </section>
       </section>
       <section class="jornada" aria-labelledby="jornada-titulo">
         <h2 id="jornada-titulo">Como planejar sua meta</h2>

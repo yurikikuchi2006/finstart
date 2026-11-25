@@ -134,69 +134,140 @@ p {
 .hero-copy {
   min-width: 0;
 }
-.demo-window {
-  background: #171717;
-  border: 1px solid #51442b;
-  border-radius: 16px;
-  padding: 26px;
+.inicio {
+  background: #eff5ef;
 }
-.demo-top {
-  font-size: 0.875rem;
-  color: #d2c7aa;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 18px;
-}
-.demo-label {
-  font-size: 0.875rem;
-  margin: 16px 0 0;
-}
-.demo-value {
-  font-size: 2.7rem;
-  font-weight: 650;
+.inicio main {
+  --ink: #172e2a;
+  --line: #c9cec0;
+  color-scheme: light;
   color: var(--ink);
-  letter-spacing: -0.04em;
-  margin: 12px 0 20px;
 }
-.demo-row {
+.inicio main p {
+  color: #435951;
+}
+.inicio main a:not(.botao) {
+  color: #165646;
+}
+.inicio .hero-copy .botao {
+  background: #e9c66a;
+  border-color: #d7b352;
+}
+.inicio .hero-copy .botao:hover {
+  background: #f1d482;
+}
+.inicio main :focus-visible {
+  outline-color: #176556;
+}
+.inicio footer {
+  border-color: #c9cec0;
+  color: #435951;
+}
+.projecao-demo {
+  --ink: #f1faf4;
+  --line: #41635a;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #24534a;
+  border-radius: 16px;
+  background: #153f37;
+  color: var(--ink);
+  color-scheme: dark;
+}
+.inicio .projecao-demo p,
+.inicio .projecao-demo a:not(.botao) {
+  color: #c4e4d9;
+}
+.inicio .projecao-demo :focus-visible {
+  outline-color: #aaf0d9;
+}
+.projecao-demo h2 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+}
+.projecao-demo > p {
+  margin-bottom: 16px;
+  font-size: 0.875rem;
+}
+.projecao-demo-prazos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.projecao-demo-prazos button {
+  min-height: 44px;
+  padding: 7px 10px;
+  border-color: var(--line);
+  background: #20493f;
+  color: var(--ink);
+  font-size: 0.875rem;
+}
+.projecao-demo-prazos button:hover,
+.projecao-demo-prazos button[aria-pressed="true"] {
+  border-color: #a2d8c8;
+  color: #f1faf4;
+  background: #326454;
+}
+.projecao-demo-valor {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  color: #c4e4d9;
+}
+.projecao-demo-valor strong {
+  color: var(--ink);
+  font-size: clamp(1.7rem, 4vw, 2.65rem);
+  letter-spacing: -0.04em;
+}
+#demo-composicao {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.875rem;
+}
+.projecao-demo-grafico {
+  margin: 8px 0 14px;
+}
+.projecao-demo-grafico canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background:
+    linear-gradient(var(--line), var(--line)) 0 25% / 100% 1px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 50% / 100% 1px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 75% / 100% 1px no-repeat,
+    linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;
+}
+.projecao-demo-grafico > div {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-  font-size: 0.85rem;
+  padding-top: 4px;
+  color: #c4e4d9;
+  font-size: 0.875rem;
 }
-.demo-bar {
-  height: 12px;
-  display: flex;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 14px 0;
+.projecao-demo-grafico p {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
 }
-.demo-bar span:nth-child(1) {
-  width: 50%;
-  background: #d4af37;
-}
-.demo-bar span:nth-child(2) {
-  width: 30%;
-  background: #92762d;
-}
-.demo-bar span:nth-child(3) {
-  width: 20%;
-  background: #d7b94f;
+.projecao-demo > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.925rem;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .demo-bar {
-    transform-origin: left center;
-    animation: mostrar-divisao 260ms var(--ease-out);
+  .jornada-entrada:not(:focus-within) {
+    animation: entrada-jornada 250ms var(--ease-out);
   }
-  @keyframes mostrar-divisao {
+  @keyframes entrada-jornada {
     from {
-      opacity: 0.55;
-      transform: scaleX(0.95);
+      opacity: 0.65;
+      transform: translateY(10px);
     }
   }
 }
-.demo-value,
-.demo-row strong,
+.projecao-demo-valor strong,
 #resultado span,
 #resumo .card p,
 #indicadores dd,
@@ -212,7 +283,7 @@ td {
   border-bottom: 1px solid var(--line);
 }
 .jornada li::marker {
-  color: var(--gold);
+  color: #176556;
   font-weight: 650;
 }
 .jornada a {
@@ -607,9 +678,6 @@ footer {
   .hero {
     gap: 24px;
   }
-  .demo-window {
-    padding: 20px;
-  }
 }
 @media (max-width: 700px) {
   header {
@@ -748,18 +816,12 @@ footer {
   .hero h1 {
     font-size: 2.25rem;
   }
-  .demo-value {
-    font-size: 2.2rem;
-  }
   main {
     padding-left: 16px;
     padding-right: 16px;
   }
 }
 
-.demo-value {
-  color: #f4ecd4;
-}
 /* Sobre: composição editorial com a identidade FinStart. */
 .sobre-hero {
   display: grid;

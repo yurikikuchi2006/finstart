@@ -27,6 +27,7 @@ const publicos = new Set([
   "financas.js",
   "ui.js",
   "index.html",
+  "inicio.js",
   "projeto.html",
   "simulador.html",
   "conta.html",
