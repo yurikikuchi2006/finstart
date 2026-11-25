@@ -14,6 +14,6 @@
 
 ## Situação da validação
 
-Em 25/11, a jornada pública transferiu o aporte do orçamento à projeção e o resultado para a meta. A API e o proxy responderam com MySQL conectado. O teste local confirmou a gravação da meta, a persistência após novo login e a redefinição de senha com envio simulado. A rodada publicada ainda precisa registrar os dois fluxos autenticados com e-mail real.
+Em 25/11, a jornada pública transferiu o aporte do orçamento à projeção e o resultado para a meta. A API e o proxy responderam com MySQL conectado. O teste local confirmou a gravação da meta, a persistência após novo login e a redefinição de senha com envio simulado. Na rodada publicada, a meta editada reapareceu no painel após novo login. O titular confirmou ter redefinido a senha com código real e entrado com a nova senha. Consulte o [registro da validação autenticada](evidencias/entrega-4/validacao-autenticada-producao.json).
 
 Use dados fictícios e preserve a privacidade de senhas, códigos e endereços de e-mail nas capturas.

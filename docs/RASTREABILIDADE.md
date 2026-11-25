@@ -16,7 +16,7 @@ Na revisão local, `npm test` registrou **21 testes aprovados, zero falhas e um 
 
 | Requisito | Implementação | Teste e evidência |
 | --- | --- | --- |
-| RF01 · Conta e sessão | `frontend/conta.js`, `frontend/api.js`, `server/verificacao-email.js` | `tests/verificacao-email.test.js`. Em produção, Yuri recebeu o código de cadastro no Spam do Gmail e o painel autenticado foi observado. Em ambiente local, cadastro, saída, novo login e redefinição de senha passaram com entrega simulada. Falta testar o novo login e a redefinição com e-mail real na versão final publicada. |
+| RF01 · Conta e sessão | `frontend/conta.js`, `frontend/api.js`, `server/verificacao-email.js` | `tests/verificacao-email.test.js`. Em produção, Yuri recebeu o código de cadastro no Spam do Gmail e o painel autenticado foi observado. Em ambiente local, cadastro, saída, novo login e redefinição de senha passaram com entrega simulada. O novo login foi observado em produção. O titular confirmou a redefinição com e-mail real e o login com a nova senha. Consulte o [registro da validação autenticada](evidencias/entrega-4/validacao-autenticada-producao.json). |
 | RF02 · Conteúdos | `frontend/aprender.js`, `server/conteudos.js` | `tests/aulas.test.js` e [registro de filtros e leitura](VALIDACAO-FINAL.md). |
 | RF03 · Orçamento | `frontend/simulador.js` | `tests/entrega-completa.test.js` e [registro de cálculo e histórico](VALIDACAO-FINAL.md). |
 | RF04 · Projeção e gráfico | `frontend/juros.js`, `frontend/financas.js`, `frontend/graficos.js` | `tests/ferramentas.test.js` e [registro do gráfico e da tabela](VALIDACAO-FINAL.md). |
@@ -24,7 +24,7 @@ Na revisão local, `npm test` registrou **21 testes aprovados, zero falhas e um 
 | RF06 · Metas | `frontend/metas.js`, `server/controllers.js` | `tests/ferramentas.test.js` e [registro de criação, edição e exclusão](VALIDACAO-FINAL.md). |
 | RF07 · Progresso | `frontend/metas.js`, `server/controllers.js` | `tests/aulas.test.js` e [registro de aporte e histórico](VALIDACAO-FINAL.md). |
 | RF08 · Painel e históricos | `frontend/painel.js`, `server/controllers.js` | `tests/integracao.test.js` e [registro de persistência e isolamento](VALIDACAO-FINAL.md). |
-| Fluxo orçamento, projeção e meta | `frontend/simulador.js`, `frontend/juros.js`, `frontend/metas.js`, `frontend/painel.js` | [Aprovado no navegador local](evidencias/validacao-final/fluxo-integrado-local.json). Renda de R$ 3.000 levou R$ 600 de aporte à projeção. O saldo e o prazo de 12 meses preencheram a meta, que apareceu no painel e continuou disponível após novo login. A [rodada pública](evidencias/entrega-4/fluxo-publico.json) confirmou a transferência dos parâmetros. A persistência autenticada em produção segue pendente nesta rodada. |
+| Fluxo orçamento, projeção e meta | `frontend/simulador.js`, `frontend/juros.js`, `frontend/metas.js`, `frontend/painel.js` | [Aprovado no navegador local](evidencias/validacao-final/fluxo-integrado-local.json). Renda de R$ 3.000 levou R$ 600 de aporte à projeção. O saldo e o prazo de 12 meses preencheram a meta, que apareceu no painel e continuou disponível após novo login. A [rodada pública](evidencias/entrega-4/fluxo-publico.json) confirmou a transferência dos parâmetros. A criação, a edição e a persistência após novo login foram confirmadas em produção. Consulte o [registro da validação autenticada](evidencias/entrega-4/validacao-autenticada-producao.json). |
 
 | Requisito não funcional | Situação atual | Verificação |
 | --- | --- | --- |

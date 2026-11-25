@@ -2,8 +2,6 @@
   "revisao": "2026-11-25",
   "criterio_concluido": "Código implementado e cenário relevante verificado. Sem atribuição retroativa de autoria ou reuniões.",
   "a_fazer": [
-    "Comprovar criação, edição e persistência de meta em produção",
-    "Validar recuperação de senha com e-mail real em produção",
     "Finalizar fichas de extensão e reunir a comprovação das horas",
     "Conferir /api/saude 15 minutos antes da apresentação"
   ],
@@ -14,7 +12,9 @@
     "Publicar a revisão da interface e conferir o menu móvel",
     "Validar cálculo e passagem de parâmetros do orçamento à meta em produção",
     "Validar persistência da meta e recuperação de senha com e-mail simulado no ambiente local",
-    "Consolidar documentação e evidências da quarta entrega"
+    "Consolidar documentação e evidências da quarta entrega",
+    "Conferir criação, edição e persistência da meta após novo login em produção",
+    "Registrar a confirmação do titular sobre recuperação de senha com e-mail real e login com a nova senha"
   ],
   "historico_observavel": [
     {

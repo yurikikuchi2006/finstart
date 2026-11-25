@@ -1,0 +1,22 @@
+{
+  "data": "2026-11-25",
+  "ambiente": "Produção, Vercel / Render / Aiven",
+  "meta": {
+    "criacao_objetivo_centavos": 120000,
+    "edicao_objetivo_centavos": 150000,
+    "guardado_centavos": 30000,
+    "progresso_percentual": 20,
+    "confirmada_no_painel_apos_sair_e_entrar": true
+  },
+  "recuperacao_senha": {
+    "fonte": "Confirmação manual do titular da conta",
+    "codigo_real_recebido": true,
+    "senha_redefinida": true,
+    "login_com_nova_senha": true
+  },
+  "capturas": [
+    "meta-criada-producao.jpg",
+    "meta-editada-producao.jpg",
+    "meta-apos-login-producao.jpg"
+  ]
+}
